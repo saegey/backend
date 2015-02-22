@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "",
+  "type": "object",
+  "properties": {
+    "id": {
+      "id": "/id",
+      "type": "integer",
+      "default": 3
+    },
+    "first_name": {
+      "id": "/first_name",
+      "type": "string",
+      "default": "john"
+    },
+    "last_name": {
+      "id": "/last_name",
+      "type": "string",
+      "default": "saegebarth"
+    },
+    "email": {
+      "id": "/email",
+      "type": "string",
+      "default": "adams@tune.com"
+    },
+    "provider": {
+      "id": "/provider",
+      "type": "null",
+      "default": "github"
+    },
+    "provider_id": {
+      "id": "/provider_id",
+      "type": "null",
+      "default": "577676"
+    },
+    "updated_at": {
+      "id": "/updated_at",
+      "type": "string",
+      "default": "2015-02-22T19:03:18+00:00"
+    },
+    "created_at": {
+      "id": "/created_at",
+      "type": "string",
+      "default": "2015-02-21T22:06:11+00:00"
+    },
+    "account": {
+      "id": "/account",
+      "type": "object",
+      "properties": {
+        "id": {
+          "id": "/account/id",
+          "type": "integer",
+          "default": 1
+        },
+        "properties": {
+          "id": "/account/properties",
+          "type": "array",
+          "items": [
+            {
+              "id": "/account/properties/0",
+              "type": "object",
+              "properties": {
+                "created_at": {
+                  "id": "/account/properties/0/created_at",
+                  "type": "string",
+                  "default": "2015-02-21T20:14:15+00:00"
+                },
+                "id": {
+                  "id": "/account/properties/0/id",
+                  "type": "integer",
+                  "default": 1
+                },
+                "name": {
+                  "id": "/account/properties/0/name",
+                  "type": "string",
+                  "default": "test property"
+                },
+                "updated_at": {
+                  "id": "/account/properties/0/updated_at",
+                  "type": "string",
+                  "default": "2015-02-21T20:14:15+00:00"
+                }
+              }
+            }
+          ]
+        },
+        "updated_at": {
+          "id": "/account/updated_at",
+          "type": "string",
+          "default": "2015-02-21T20:14:15+00:00"
+        },
+        "created_at": {
+          "id": "/account/created_at",
+          "type": "string",
+          "default": "2015-02-21T20:14:15+00:00"
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "first_name",
+    "last_name",
+    "email",
+    "provider",
+    "provider_id",
+    "updated_at",
+    "created_at",
+    "account"
+  ]
+}

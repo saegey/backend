@@ -1,5 +1,4 @@
 source "https://rubygems.org"
-ruby "2.2.0"
 
 gem "multi_json"
 gem "oj"
@@ -26,7 +25,6 @@ gem "omniauth-oauth2"
 gem "omniauth-github"
 gem 'omniauth-twitter'
 gem 'shield'
-# gem 'omniauth-identity'
 
 group :development, :test do
   gem "pry-byebug"
@@ -38,4 +36,5 @@ group :test do
   gem "dotenv"
   gem "rack-test"
   gem "rspec"
+  gem 'json-schema'
 end

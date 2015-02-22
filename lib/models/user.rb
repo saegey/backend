@@ -1,13 +1,26 @@
 class User < Sequel::Model
   include Shield::Model	
-  plugin :timestamps
+  plugin :timestamps, update_on_create: true
   plugin :validation_helpers
 
-  many_to_one :account
+  one_to_one :account
 
   def self.fetch(email)
-    user = first(email: email)
-    return user
+    first(email: email)
+  end
+
+  def before_create
+    if self.account_id == nil
+      account = Account.create(status: 'pending')
+      self.account_id = account.id
+    end
+    super
+  end
+
+  def after_create
+    account = Account.first(id: self.account_id)
+    account.user_id = self.id
+    account.save
   end
 
   # def validate

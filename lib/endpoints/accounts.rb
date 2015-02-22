@@ -2,7 +2,7 @@ module Endpoints
   class Accounts < Base
     namespace "/accounts" do
       before do
-        halt(401) unless session[:user_id]
+        authorize!
         content_type :json, charset: 'utf-8'
       end
 
@@ -19,19 +19,19 @@ module Endpoints
       end
 
       get "/:id" do |id|
-        account = Account.first(uuid: id) || halt(404)
+        account = Account.first(id: id) || halt(404)
         encode serialize(account)
       end
 
       patch "/:id" do |id|
-        account = Account.first(uuid: id) || halt(404)
+        account = Account.first(id: id) || halt(404)
         # warning: not safe
         #account.update(body_params)
         encode serialize(account)
       end
 
       delete "/:id" do |id|
-        account = Account.first(uuid: id) || halt(404)
+        account = Account.first(id: id) || halt(404)
         account.destroy
         encode serialize(account)
       end

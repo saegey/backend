@@ -3,64 +3,75 @@ require "spec_helper"
 describe Endpoints::PropertyUnits do
   include Committee::Test::Methods
   include Rack::Test::Methods
-
-  def app
-    Routes
-  end
-
-  def schema_path
-    "./docs/schema.json"
-  end
+  include RSpec::Matchers
 
   before do
-    @property_unit = PropertyUnit.create
+    @user = User.new
+    @user.first_name = 'adam'
+    @user.last_name = 'saegebarth'
+    @user.email = 'test@test.com'
+    @user.password = 'test123'
+    @user.save
 
-    # temporarily touch #updated_at until we can fix prmd
-    @property_unit.updated_at
+    @property = Property.new
+    @property.name = 'test property'
+    @property.account_id = @user.account_id
+    @property.save
+
+    @property_unit = PropertyUnit.new
+    @property_unit.property_id = @property.id
+    @property_unit.account_id = @user.account_id
     @property_unit.save
   end
 
-  describe 'GET /property-units' do
+  describe "GET /properties/id/units" do
     it 'returns correct status code and conforms to schema' do
-      get '/property-units'
+      get "/properties/#{@property.id}/units", {}, auth
       expect(last_response.status).to eq(200)
-      assert_schema_conform
+      expect(last_response).to match_response_schema("property_units")
     end
   end
 
-=begin
-  describe 'POST /property-units' do
+
+  describe 'POST /properties/id/units' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      post '/property-units', MultiJson.encode({})
+      data = {property_id: @property.id}
+      post "/properties/#{@property.id}/units", MultiJson.encode(data), auth
+      
+      res = JSON.parse(last_response.body)
+      
       expect(last_response.status).to eq(201)
-      assert_schema_conform
+      expect(last_response).to match_response_schema("property_unit")
+      expect(res["property_id"]).to eq(data[:property_id])
+      expect(res["pin_code"]).to be_a(String)
+      expect(res["pin_code"].to_i).to be_a(Integer)
     end
   end
-=end
 
-  describe 'GET /property-units/:id' do
+
+  describe "GET /properties/:property_id/units/:id" do
     it 'returns correct status code and conforms to schema' do
-      get "/property-units/#{@property_unit.uuid}"
+      get "/properties/#{@property.id}/units/#{@property_unit.id}", {}, auth
       expect(last_response.status).to eq(200)
-      assert_schema_conform
+      expect(last_response).to match_response_schema("property_unit")
     end
   end
 
-  describe 'PATCH /property-units/:id' do
+  describe 'PATCH /properties/:property_id/units/:id' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      patch "/property-units/#{@property_unit.uuid}", MultiJson.encode({})
+      patch "/properties/#{@property.id}/units/#{@property_unit.id}", MultiJson.encode({}), auth
       expect(last_response.status).to eq(200)
-      assert_schema_conform
+      expect(last_response).to match_response_schema("property_unit")
     end
   end
 
   describe 'DELETE /property-units/:id' do
     it 'returns correct status code and conforms to schema' do
-      delete "/property-units/#{@property_unit.uuid}"
+      delete "/properties/#{@property.id}/units/#{@property_unit.id}", {}, auth
       expect(last_response.status).to eq(200)
-      assert_schema_conform
+      expect(last_response).to match_response_schema("property_unit")
     end
   end
 end

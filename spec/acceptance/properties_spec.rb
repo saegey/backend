@@ -3,54 +3,71 @@ require "spec_helper"
 describe Endpoints::Properties do
   include Committee::Test::Methods
   include Rack::Test::Methods
+  include RSpec::Matchers
 
-  def app
-    Routes
-  end
+  before do
+    @user = User.new
+    @user.first_name = 'adam'
+    @user.last_name = 'saegebarth'
+    @user.email = 'test@test.com'
+    @user.password = 'test123'
+    @user.save
 
-  def schema_path
-    "./docs/schema.json"
+    @property = Property.new
+    @property.name = 'test property'
+    @property.account_id = @user.account_id
+    @property.save
   end
 
   describe 'GET /properties' do
     it 'returns correct status code and conforms to schema' do
-      get '/properties'
-      assert_equal 200, last_response.status
-      assert_schema_conform
+      get '/properties', {}, auth
+      expect(last_response.status).to eq(200)
+      expect(last_response).to match_response_schema("properties")
     end
   end
 
   describe 'POST /properties' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      post '/properties', MultiJson.encode({})
-      assert_equal 201, last_response.status
-      assert_schema_conform
+      data = {name: 'test name'}
+      post "/properties", MultiJson.encode(data), auth
+      body = JSON.parse(last_response.body)
+
+      expect(last_response.status).to eq(201)
+      expect(last_response).to match_response_schema("property")
+      expect(body["name"]).to eq('test name')
     end
   end
 
   describe 'GET /properties/:id' do
     it 'returns correct status code and conforms to schema' do
-      get "/properties/123"
-      assert_equal 200, last_response.status
-      assert_schema_conform
+      get "/properties/#{@property.id}", nil, auth
+      expect(last_response.status).to eq(200)
+      expect(last_response).to match_response_schema("property")
     end
   end
 
   describe 'PATCH /properties/:id' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      patch '/properties/123', MultiJson.encode({})
-      assert_equal 200, last_response.status
-      assert_schema_conform
+      data = { name: "test" }
+      patch "/properties/#{@property.id}", MultiJson.encode(data), auth
+
+      res = JSON.parse(last_response.body)
+
+      expect(last_response.status).to eq(200)
+      expect(last_response).to match_response_schema("property")
+      expect(res["name"]).to eq("test")
     end
   end
 
   describe 'DELETE /properties/:id' do
     it 'returns correct status code and conforms to schema' do
-      delete '/properties/123'
-      assert_equal 200, last_response.status
-      assert_schema_conform
+      delete "/properties/#{@property.id}", nil, auth
+      expect(last_response.status).to eq(200)
+      expect(last_response).to match_response_schema("property")
+      expect(Property.first(id: @property_id)).to be_nil
     end
   end
 end

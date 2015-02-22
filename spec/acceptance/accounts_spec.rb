@@ -3,28 +3,16 @@ require "spec_helper"
 describe Endpoints::Accounts do
   include Committee::Test::Methods
   include Rack::Test::Methods
-
-  def app
-    Routes
-  end
-
-  def schema_path
-    "./docs/schema.json"
-  end
+  include RSpec::Matchers
 
   before do
-    @account = Account.create
-
-    # temporarily touch #updated_at until we can fix prmd
-    @account.updated_at
-    @account.save
+    @user = User.first(email: 'test@test.com')
   end
 
   describe 'GET /accounts' do
     it 'returns correct status code and conforms to schema' do
-      get '/accounts'
+      get '/accounts', nil, auth
       expect(last_response.status).to eq(200)
-      assert_schema_conform
     end
   end
 
@@ -41,26 +29,23 @@ describe Endpoints::Accounts do
 
   describe 'GET /accounts/:id' do
     it 'returns correct status code and conforms to schema' do
-      get "/accounts/#{@account.uuid}"
+      get "/accounts/#{@user.account_id}", nil, auth
       expect(last_response.status).to eq(200)
-      assert_schema_conform
     end
   end
 
   describe 'PATCH /accounts/:id' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      patch "/accounts/#{@account.uuid}", MultiJson.encode({})
+      patch "/accounts/#{@user.account_id}", MultiJson.encode({}), auth
       expect(last_response.status).to eq(200)
-      assert_schema_conform
     end
   end
 
   describe 'DELETE /accounts/:id' do
     it 'returns correct status code and conforms to schema' do
-      delete "/accounts/#{@account.uuid}"
+      delete "/accounts/#{@user.account_id}", nil, auth
       expect(last_response.status).to eq(200)
-      assert_schema_conform
     end
   end
 end

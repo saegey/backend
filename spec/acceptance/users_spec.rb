@@ -3,64 +3,69 @@ require "spec_helper"
 describe Endpoints::Users do
   include Committee::Test::Methods
   include Rack::Test::Methods
+  include RSpec::Matchers
 
-  def app
-    Routes
-  end
-
-  def schema_path
-    "./docs/schema.json"
-  end
+  # let(:body) { { :first_name => "test"}.to_json }
 
   before do
-    @user = User.create
-
-    # temporarily touch #updated_at until we can fix prmd
+    @user = User.create({
+      email: "test@test.com",
+      first_name: "Bob",
+      last_name: "Jones"
+    })
     @user.updated_at
     @user.save
+
+    @property = Property.new
+    @property.name = 'test property'
+    @property.account_id = @user.account_id
+    @property.save
   end
 
   describe 'GET /users' do
     it 'returns correct status code and conforms to schema' do
-      get '/users'
+      get '/users', nil, auth
+      
+      data = JSON.parse(last_response.body)
+      
       expect(last_response.status).to eq(200)
-      assert_schema_conform
+      expect(last_response).to match_response_schema("user")
+      expect(data["account"]["id"]).to eq(@user.account_id)
+      expect(data["email"]).to eq(@user.email)
     end
   end
 
-=begin
   describe 'POST /users' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      post '/users', MultiJson.encode({})
+      data = {
+        first_name: "John", 
+        last_name: "Jones", 
+        email: "test@test.com",
+        password: "test123"
+      }
+      post '/users', MultiJson.encode(data)
       expect(last_response.status).to eq(201)
-      assert_schema_conform
-    end
-  end
-=end
-
-  describe 'GET /users/:id' do
-    it 'returns correct status code and conforms to schema' do
-      get "/users/#{@user.uuid}"
-      expect(last_response.status).to eq(200)
-      assert_schema_conform
+      expect(last_response).to match_response_schema("user_create")
     end
   end
 
-  describe 'PATCH /users/:id' do
+  describe 'PATCH /users' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      patch "/users/#{@user.uuid}", MultiJson.encode({})
+      data = {first_name: "John", last_name: "Jones", email: "test@test.com", password: "test123"}
+      patch "/users/#{@user.id}", MultiJson.encode(data), auth
       expect(last_response.status).to eq(200)
-      assert_schema_conform
+      expect(last_response).to match_response_schema("user")
     end
   end
 
   describe 'DELETE /users/:id' do
     it 'returns correct status code and conforms to schema' do
-      delete "/users/#{@user.uuid}"
+      delete "/users/#{@user.id}"
       expect(last_response.status).to eq(200)
-      assert_schema_conform
+      expect(last_response).to match_response_schema("user")
+      expect(User.first(id: @user.id)).to be_nil
     end
   end
 end

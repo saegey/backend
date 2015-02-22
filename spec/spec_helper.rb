@@ -15,13 +15,15 @@ Dotenv.load('.env.test')
 
 require_relative "../lib/initializer"
 
+include Helpers
+
 # pull in test initializers
 Pliny::Utils.require_glob("#{Config.root}/spec/support/**/*.rb")
 
 RSpec.configure do |config|
   config.before :suite do
     DatabaseCleaner.clean_with(:truncation)
-    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.strategy = :truncation
   end
 
   config.before :all do
@@ -44,10 +46,19 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = 'random'
+  # config.order = 'random'
 
   # the rack app to be tested with rack-test:
   def app
     @rack_app || fail("Missing @rack_app")
+  end
+
+  def auth
+    {
+      "rack.session" => {
+        account_id: @user.account_id,
+        user_id: @user.id
+      }
+    }
   end
 end

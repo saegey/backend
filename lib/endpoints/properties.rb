@@ -2,17 +2,21 @@ module Endpoints
   class Properties < Base
     namespace "/properties" do
       before do
-        halt(401) unless session[:user_id]
+        authorize!
         content_type :json, charset: 'utf-8'
       end
 
       get do
-        encode serialize(Property.where(account_id: session[:account_id]))
+        encode serialize(
+          Property.where(account_id: session[:account_id])
+        )
       end
 
       post do
+        params =  MultiJson.decode(request.env["rack.input"].read)
+
         property = Property.new
-        property.name = params['name']
+        property.name = params["name"]
         property.account_id = session[:account_id]
 
         if property.valid?
@@ -33,18 +37,20 @@ module Endpoints
       end
 
       patch "/:id" do |id|
+        data =  MultiJson.decode(request.env["rack.input"].read)
+        
         property = Property.first(
           id: params['id'],
           account_id: session[:account_id]
         ) || halt(404)
         
-        property.name = params['name']
+        property.name = data['name']
         
         if property.valid?
           property.save
           encode serialize(property)
         else
-          encode property.errors
+          encode property
         end
       end
 

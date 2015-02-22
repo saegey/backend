@@ -1,11 +1,5 @@
 module Endpoints
   class Root < Base
-    get '/auth/password' do
-      user = User.authenticate(params[:email], params[:password]) || halt(401)
-      session = {session: user.uuid, account_id: user.account_id}
-      encode serialize(user)
-    end
-
     get '/auth/:provider/callback' do
       user = User.find(
         provider: params[:provider],
@@ -13,7 +7,7 @@ module Endpoints
       )
 
       if user
-        session[:user_id] = user.uuid
+        session[:user_id] = user.id
         session[:account_id] = user.account_id
         encode user
       else
@@ -23,6 +17,12 @@ module Endpoints
         })
         encode response
       end
+    end
+
+    get '/auth/password' do
+      user = User.authenticate(params[:email], params[:password]) || halt(401)
+      session = {session: user.id, account_id: user.account_id}
+      encode serialize(user)
     end
 
     get "/auth/logout" do

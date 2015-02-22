@@ -9,7 +9,7 @@ class Serializers::User < Serializers::Base
   end
   structure(:account) do |arg|
     {
-      id:         arg.uuid,
+      id:         arg.id,
       properties: Serializers::User.new(:property).serialize(arg.properties),
       updated_at: arg.updated_at.try(:iso8601),
       created_at: arg.created_at.try(:iso8601),
@@ -18,7 +18,7 @@ class Serializers::User < Serializers::Base
 
   structure(:default) do |arg|
     {
-      id:          arg.uuid,
+      id:          arg.id,
       first_name:  arg.first_name,
       last_name:   arg.last_name,
       email:       arg.email,
