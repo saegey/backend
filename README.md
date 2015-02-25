@@ -1,5 +1,4 @@
-# Pliny Template app
+# Fobless - Backend
 
-This is the template app used by the [Pliny](https://github.com/interagent/pliny) gem.
+[![Code Climate](https://codeclimate.com/github/fobless/backend/badges/gpa.svg)](https://codeclimate.com/github/fobless/backend)
 
-For more information please refer to the gem docs.
