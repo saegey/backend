@@ -6,12 +6,14 @@ env:
   - MY_PHONE_NUMBER=500-555-5006
 language: ruby
 rvm:
-  - 2.1.2
+- 2.1.2
 notifications:
   email:
-    - adam.saegebarth@gmail.com
-bundler_args: --without production
+  - adam.saegebarth@gmail.com
+  slack:
+    secure: GRQPZM+tfzF02yLBrh9lHswPnlEOrgRBp0GbctgjKlJ+ysDD2F4V8uvCR2xpIZBAVqey9dRz83TCUlsJkISOGksrB7ZVWkTs8QFg9tdusdQNLcOIQkCTdq5c/cspnqnbI7IGlRj0HrrZz4VXupKBFelTVjpHU75w3BMbRdl6U4c=
+bundler_args: "--without production"
 addons:
-  postgresql: "9.3"
+  postgresql: '9.3'
 before_script:
-  - psql -c 'create database myapp-test;' -U postgres
+- psql -c 'create database `myapp-test`;' -U postgres
