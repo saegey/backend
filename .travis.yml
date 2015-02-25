@@ -1,0 +1,17 @@
+branches:
+  only:
+  - master
+env:
+  global:
+  - MY_PHONE_NUMBER=500-555-5006
+language: ruby
+rvm:
+  - 2.1.2
+notifications:
+  email:
+    - adam.saegebarth@gmail.com
+bundler_args: --without production
+addons:
+  postgresql: "9.3"
+before_script:
+  - psql -c 'create database myapp-test;' -U postgres
