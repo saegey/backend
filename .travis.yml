@@ -4,6 +4,8 @@ branches:
 env:
   global:
   - MY_PHONE_NUMBER=500-555-5006
+  - DATABASE_URL=postgres:///travis_ci_test
+  - DB=postgresql
 language: ruby
 rvm:
 - 2.1.2
@@ -17,3 +19,7 @@ addons:
   postgresql: '9.3'
 before_script:
 - psql -c 'create database travis_ci_test;' -U postgres
+script:
+- RACK_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:seed
+- bundle exec rake
