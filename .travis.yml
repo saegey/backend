@@ -23,3 +23,5 @@ script:
 - RACK_ENV=test bundle exec rake db:migrate --trace
 - bundle exec rake db:seed
 - bundle exec rake
+services:
+  - redis-server
