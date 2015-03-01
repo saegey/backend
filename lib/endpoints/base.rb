@@ -19,8 +19,10 @@ module Endpoints
     use Rack::Session::Redis
 
     use OmniAuth::Builder do
+      configure do |config|
+        config.path_prefix = '/v1/auth'
+      end
       provider :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET']
-      # provider :identity, :fields => [:email], :model => User
       provider :twitter, ENV['TWITTER_KEY'], ENV['TWITTER_SECRET']
     end
 
