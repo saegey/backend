@@ -324,7 +324,7 @@ Properties units linked to an account for currently authenticated user
             ]
         }
 
-## Property Units [/v1/properties/{property_id}/units/{id}]
+## /v1/properties/{property_id}/units/{id}
 Property unit linked to an account for currently authenticated user
 
 + Parameters
@@ -358,6 +358,18 @@ Property unit linked to an account for currently authenticated user
             "updated_at": "2015-03-01T18:30:21+00:00",
             "property_id": 56,
             "pin_code": "4060"
+        }
+
++ Request (application/json)
+
+        { "pin_code": "" }
+
++ Response 400 (application/json)
+
+        {
+            "pin_code": [
+                "is not present"
+            ]
         }
 
 ### Delete Property Unit [DELETE]
