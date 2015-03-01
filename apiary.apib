@@ -243,3 +243,108 @@ A property linked to an account
             "updated_at": "2015-03-01T18:00:20+00:00",
             "units": []
         }
+
+## Property Units Collection [/v1/properties/{property_id}/units]
+Properties units linked to an account for currently authenticated user
+
++ Parameters
+
+    + property_id (required, integer, `57`) ... Id of property.
+
+### List Property Units [GET]
+
++ Response 200 (application/json)
+    
+        [
+            {
+                "created_at": "2015-03-01T18:30:21+00:00",
+                "id": 34,
+                "updated_at": null,
+                "property_id": 56,
+                "pin_code": "4060"
+            },
+            {
+                "created_at": "2015-03-01T18:30:47+00:00",
+                "id": 35,
+                "updated_at": null,
+                "property_id": 56,
+                "pin_code": "8238"
+            }
+        ]
+
+### Create Property Unit [POST]
+
+
++ Request (application/json)
+    
+        {}
+
++ Response 400 (application/json)
+
+        {
+            "pin_code": [
+                "is not present"
+            ]
+        }
+
++ Request (application/json)
+    
+        { "pin_code": "1234" }
+
++ Response 201 (application/json)
+    
+        {
+            "created_at": "2015-03-01T18:54:42+00:00",
+            "id": 37,
+            "updated_at": null,
+            "property_id": 56,
+            "pin_code": "3070"
+        }
+
+## Property Units [/v1/properties/{property_id}/units/{id}]
+Property unit linked to an account for currently authenticated user
+
++ Parameters
+
+    + property_id (required, integer, `57`) ... Id of property.
+    + id (required, integer, `36`) ... Id of property unit.
+
+### Retrieve Property Unit [GET]
+
++ Response 200 (application/json)
+
+        {
+            "created_at": "2015-03-01T18:37:50+00:00",
+            "id": 36,
+            "updated_at": null,
+            "property_id": 56,
+            "pin_code": "2398"
+        }
+
+### Update Property Unit [PATCH]
+
++ Request 201 (application/json)
+
+        { "pin_code": "4060" }
+
++ Response 200 (application/json)
+
+        {
+            "created_at": "2015-03-01T18:30:21+00:00",
+            "id": 34,
+            "updated_at": "2015-03-01T18:30:21+00:00",
+            "property_id": 56,
+            "pin_code": "4060"
+        }
+
+### Delete Property Unit [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            "created_at": "2015-03-01T18:54:42+00:00",
+            "id": 37,
+            "updated_at": "2015-03-01T18:30:21+00:00",
+            "property_id": 56,
+            "pin_code": "3070"
+        }
