@@ -8,19 +8,32 @@ Fobless api
 + Response 200 (application/json)
 
         {
-            "id": 69,
+            "id": 70,
             "first_name": "John",
             "last_name": "Does",
-            "email": "john.doe@gmail.com",
+            "email": "john.does@gmail.com",
             "provider": "github",
             "provider_id": "577676",
-            "updated_at": "2015-03-01T16:28:51+00:00",
-            "created_at": "2015-03-01T16:28:51+00:00",
+            "updated_at": "2015-03-01T16:42:07+00:00",
+            "created_at": "2015-03-01T16:42:07+00:00",
             "account": {
-                "id": 74,
-                "properties": [],
-                "updated_at": "2015-03-01T16:28:51+00:00",
-                "created_at": "2015-03-01T16:28:51+00:00"
+                "id": 75,
+                "properties": [
+                    {
+                        "created_at": "2015-03-01T17:57:29+00:00",
+                        "id": 55,
+                        "name": "test property",
+                        "updated_at": "2015-03-01T17:57:29+00:00"
+                    },
+                    {
+                        "created_at": "2015-03-01T17:58:20+00:00",
+                        "id": 56,
+                        "name": "test property updated",
+                        "updated_at": "2015-03-01T18:07:45+00:00"
+                    }
+                ],
+                "updated_at": "2015-03-01T16:42:07+00:00",
+                "created_at": "2015-03-01T16:42:07+00:00"
             }
         }
 
@@ -102,8 +115,8 @@ Fobless api
             }
         }
 
-## Authentication [/v1/auth/github]
-### Authenticate with Github [GET]
+# Group Authentication
+## GET /v1/auth/github
 + Response 200 (application/json)
 
         {
@@ -119,13 +132,16 @@ Fobless api
           "updated_at":"2015-03-01 16:42:07 +0000"
         }
 
-## Authentication [/v1/auth/password?email=&password=]
-### Authenticate with email and password [GET]
+## POST /v1/auth/password
 
 + Parameters
 
     + email (required, string, `john.does@gmail.com`) ... Email of user.
     + password (required, string, `test_password`) ... Password of user.
+
++ Request (application/json)
+    
+        { "email": "john.does@gmail.com", "password": "test_password" }
 
 + Response 200 (application/json)
         
