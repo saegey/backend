@@ -274,19 +274,6 @@ Properties units linked to an account for currently authenticated user
 
 ### Create Property Unit [POST]
 
-
-+ Request (application/json)
-    
-        {}
-
-+ Response 400 (application/json)
-
-        {
-            "pin_code": [
-                "is not present"
-            ]
-        }
-
 + Request (application/json)
     
         { "pin_code": "1234" }
@@ -298,7 +285,19 @@ Properties units linked to an account for currently authenticated user
             "id": 37,
             "updated_at": null,
             "property_id": 56,
-            "pin_code": "3070"
+            "pin_code": "1234"
+        }
+
++ Request (application/json)
+    
+        {}
+
++ Response 400 (application/json)
+
+        {
+            "pin_code": [
+                "is not present"
+            ]
         }
 
 ## Property Units [/v1/properties/{property_id}/units/{id}]
