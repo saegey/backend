@@ -9,7 +9,7 @@
       "type": "integer"
     },
     "updated_at": {
-      "type": "null"
+      "type": "string"
     },
     "property_id": {
       "type": "integer"

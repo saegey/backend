@@ -28,6 +28,7 @@ require_relative "../lib/initializer"
 @property_unit = PropertyUnit.new
 @property_unit.property_id = @property.id
 @property_unit.account_id = @user.account_id
+@property_unit.pin_code = '1234'
 
 # temporarily touch #updated_at until we can fix prmd
 @property_unit.updated_at

@@ -11,6 +11,9 @@ class Mediators::UserSignup < Mediators::Base
     user.provider = @args[:provider]
     user.provider_id = @args[:uid]
     user.account = account
+
+    account.user = user
+    account.save
     
     if user.valid?
       user.save

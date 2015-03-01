@@ -19,19 +19,19 @@ describe Endpoints::Properties do
     @property.save
   end
 
-  describe 'GET /properties' do
+  describe 'GET /v1/properties' do
     it 'returns correct status code and conforms to schema' do
-      get '/properties', {}, auth
+      get '/v1/properties', {}, auth
       expect(last_response.status).to eq(200)
       expect(last_response).to match_response_schema("properties")
     end
   end
 
-  describe 'POST /properties' do
+  describe 'POST /v1/properties' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
       data = {name: 'test name'}
-      post "/properties", MultiJson.encode(data), auth
+      post "/v1/properties", MultiJson.encode(data), auth
       body = JSON.parse(last_response.body)
 
       expect(last_response.status).to eq(201)
@@ -40,19 +40,19 @@ describe Endpoints::Properties do
     end
   end
 
-  describe 'GET /properties/:id' do
+  describe 'GET /v1/properties/:id' do
     it 'returns correct status code and conforms to schema' do
-      get "/properties/#{@property.id}", nil, auth
+      get "/v1/properties/#{@property.id}", nil, auth
       expect(last_response.status).to eq(200)
       expect(last_response).to match_response_schema("property")
     end
   end
 
-  describe 'PATCH /properties/:id' do
+  describe 'PATCH /v1/properties/:id' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
       data = { name: "test" }
-      patch "/properties/#{@property.id}", MultiJson.encode(data), auth
+      patch "/v1/properties/#{@property.id}", MultiJson.encode(data), auth
 
       res = JSON.parse(last_response.body)
 
@@ -62,9 +62,9 @@ describe Endpoints::Properties do
     end
   end
 
-  describe 'DELETE /properties/:id' do
+  describe 'DELETE /v1/properties/:id' do
     it 'returns correct status code and conforms to schema' do
-      delete "/properties/#{@property.id}", nil, auth
+      delete "/v1/properties/#{@property.id}", nil, auth
       expect(last_response.status).to eq(200)
       expect(last_response).to match_response_schema("property")
       expect(Property.first(id: @property_id)).to be_nil

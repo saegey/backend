@@ -1,6 +1,6 @@
 module Endpoints
   class Root < Base
-    get '/auth/:provider/callback' do
+    get '/v1/auth/:provider/callback' do
       user = User.find(
         provider: params[:provider],
         provider_id: request.env['omniauth.auth']['uid']
@@ -19,18 +19,22 @@ module Endpoints
       end
     end
 
-    get '/auth/password' do
-      user = User.authenticate(params[:email], params[:password]) || halt(401)
+    post '/v1/auth/password' do
+      data =  MultiJson.decode(request.env["rack.input"].read)
+
+      user = User.authenticate(data["email"], data["password"]) || halt(401)
       session = {session: user.id, account_id: user.account_id}
       encode serialize(user)
     end
 
-    get "/auth/logout" do
+    get "/v1/auth/logout" do
       halt(401) unless session[:user_id]
+      user = User.first(id: session[:user_id]) || halt(401)
       session.clear
+      encode serialize(user)
     end
 
-    get "/session" do
+    get "/v1/session" do
       halt(401) unless session[:user_id]
       encode session
     end

@@ -17,9 +17,9 @@ describe Endpoints::Properties do
     @property.save
   end
 
-  describe "GET /properties" do
+  describe "GET /v1/properties" do
     it "succeeds" do
-      get "/properties", {}, auth
+      get "/v1/properties", {}, auth
       assert_equal 200, last_response.status
     end
   end

@@ -13,9 +13,9 @@ describe Endpoints::Accounts do
     @user.save
   end
 
-  describe "GET /accounts" do
+  describe "GET /v1/accounts/:id" do
     it "succeeds" do
-      get "/accounts", {}, auth
+      get "/v1/accounts/#{@user.account_id}", {}, auth
       assert_equal 200, last_response.status
     end
   end

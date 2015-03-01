@@ -3,7 +3,7 @@ class User < Sequel::Model
   plugin :timestamps, update_on_create: true
   plugin :validation_helpers
 
-  one_to_one :account
+  many_to_one :account
 
   def self.fetch(email)
     first(email: email)

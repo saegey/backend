@@ -19,12 +19,13 @@ describe Endpoints::PropertyUnits do
     @property_unit = PropertyUnit.new
     @property_unit.property_id = @property.id
     @property_unit.account_id = @user.account_id
+    @property_unit.pin_code = '1234'
     @property_unit.save
   end
 
-  describe "GET /property-units" do
+  describe "GET /v1/property/{property_id}/units/" do
     it "succeeds" do
-      get "/properties/#{@property.id}/units", {}, auth
+      get "/v1/properties/#{@property.id}/units", {}, auth
       assert_equal 200, last_response.status
     end
   end

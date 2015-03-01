@@ -1,6 +1,6 @@
 module Endpoints
   class Properties < Base
-    namespace "/properties" do
+    namespace "/v1/properties" do
       before do
         authorize!
         content_type :json, charset: 'utf-8'
@@ -24,6 +24,7 @@ module Endpoints
           status 201
           encode serialize(property)
         else
+          status 400
           encode property.errors
         end
       end

@@ -9,42 +9,24 @@ describe Endpoints::Accounts do
     @user = User.first(email: 'test@test.com')
   end
 
-  describe 'GET /accounts' do
+  describe 'GET /v1/accounts/:id' do
     it 'returns correct status code and conforms to schema' do
-      get '/accounts', nil, auth
+      get "/v1/accounts/#{@user.account_id}", nil, auth
       expect(last_response.status).to eq(200)
     end
   end
 
-=begin
-  describe 'POST /accounts' do
+  describe 'PATCH /v1/accounts/:id' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      post '/accounts', MultiJson.encode({})
-      expect(last_response.status).to eq(201)
-      assert_schema_conform
-    end
-  end
-=end
-
-  describe 'GET /accounts/:id' do
-    it 'returns correct status code and conforms to schema' do
-      get "/accounts/#{@user.account_id}", nil, auth
+      patch "/v1/accounts/#{@user.account_id}", MultiJson.encode({}), auth
       expect(last_response.status).to eq(200)
     end
   end
 
-  describe 'PATCH /accounts/:id' do
+  describe 'DELETE /v1/accounts/:id' do
     it 'returns correct status code and conforms to schema' do
-      header "Content-Type", "application/json"
-      patch "/accounts/#{@user.account_id}", MultiJson.encode({}), auth
-      expect(last_response.status).to eq(200)
-    end
-  end
-
-  describe 'DELETE /accounts/:id' do
-    it 'returns correct status code and conforms to schema' do
-      delete "/accounts/#{@user.account_id}", nil, auth
+      delete "/v1/accounts/#{@user.account_id}", nil, auth
       expect(last_response.status).to eq(200)
     end
   end

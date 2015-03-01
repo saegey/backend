@@ -14,7 +14,7 @@ describe Endpoints::Users do
 
   describe "GET /user" do
     it "succeeds" do
-      get "/users", {}, auth
+      get "/v1/users", {}, auth
       assert_equal 200, last_response.status
     end
   end
