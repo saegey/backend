@@ -40,7 +40,7 @@ Fobless api
             }
         ]
 
-### Create a User [POST]
+### Create User [POST]
 + Request (application/json)
 
         {
@@ -111,7 +111,14 @@ Fobless api
             }
         }
 
-### Update authenticated User [PATCH]
+## /v1/users/{id}
+
++ Parameters
+
+    + id (required, integer, `69`) ... Id of User.
+
+### Update User [PATCH]
+
 + Request (application/json)
 
         {
@@ -140,7 +147,8 @@ Fobless api
             }
         }
 
-### Delete authenticated user [DELETE]
+### Delete User [DELETE]
+
 + Response 200 (application/json)
 
         {
@@ -157,6 +165,27 @@ Fobless api
                 "properties": [],
                 "updated_at": "2015-03-01T16:28:51+00:00",
                 "created_at": "2015-03-01T16:28:51+00:00"
+            }
+        }
+
+### Retrieve User [GET]
+
++ Response 200 (application/json)
+
+        {
+            "id": 69,
+            "first_name": "John",
+            "last_name": "Does",
+            "email": "john.does@gmail.com",
+            "provider": null,
+            "provider_id": null,
+            "updated_at": "2015-03-01T20:01:41+00:00",
+            "created_at": "2015-03-01T20:01:41+00:00",
+            "account": {
+                "id": 74,
+                "properties": [],
+                "updated_at": "2015-03-01T20:01:41+00:00",
+                "created_at": "2015-03-01T16:42:07+00:00"
             }
         }
 
@@ -212,6 +241,12 @@ Fobless api
             "created_at":"2015-03-01T16:42:07+00:00"
           }
         }
+
++ Request (application/json)
+
+        { "email": "john.does@gmail.com", "password": "wrong_password" }
+
++ Response 401 (application/json)
 
 # Group Properties
 ## /v1/properties
