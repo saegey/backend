@@ -116,7 +116,13 @@ Fobless api
         }
 
 # Group Authentication
-## GET /v1/auth/github
+## Auth [/v1/auth]
+## GET /v1/auth/{provider_id}
+
++ Parameters
+
+    + provider_id (required, string, `github`) ... Third party service name.
+
 + Response 200 (application/json)
 
         {
@@ -162,6 +168,7 @@ Fobless api
           }
         }
 
+# Group Properties
 ## Properties Collection [/v1/properties]
 Properties linked to an account for currently authenticated user
 ### List Properties [GET]
@@ -260,6 +267,7 @@ A property linked to an account
             "units": []
         }
 
+# Group Property Units
 ## Property Units Collection [/v1/properties/{property_id}/units]
 Properties units linked to an account for currently authenticated user
 
