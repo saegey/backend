@@ -18,6 +18,7 @@ Routes = Rack::Builder.new do
     mount Endpoints::PropertyUnits
     mount Endpoints::Users
     mount Endpoints::Accounts
+    mount Endpoints::Auth
   end
 
   # root app; but will also handle some defaults like 404
