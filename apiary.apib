@@ -3,39 +3,42 @@ FORMAT: 1A
 # fobless
 Fobless api
 
-## Users [/v1/users]
-### Retrieve authenticated User [GET]
+# Group Users
+## /v1/users
+### List Users [GET]
 + Response 200 (application/json)
 
-        {
-            "id": 70,
-            "first_name": "John",
-            "last_name": "Does",
-            "email": "john.does@gmail.com",
-            "provider": "github",
-            "provider_id": "577676",
-            "updated_at": "2015-03-01T16:42:07+00:00",
-            "created_at": "2015-03-01T16:42:07+00:00",
-            "account": {
-                "id": 75,
-                "properties": [
-                    {
-                        "created_at": "2015-03-01T17:57:29+00:00",
-                        "id": 55,
-                        "name": "test property",
-                        "updated_at": "2015-03-01T17:57:29+00:00"
-                    },
-                    {
-                        "created_at": "2015-03-01T17:58:20+00:00",
-                        "id": 56,
-                        "name": "test property updated",
-                        "updated_at": "2015-03-01T18:07:45+00:00"
-                    }
-                ],
-                "updated_at": "2015-03-01T16:42:07+00:00",
-                "created_at": "2015-03-01T16:42:07+00:00"
+        [
+            {
+                "id": 74,
+                "first_name": "John",
+                "last_name": "Does",
+                "email": "john.does@gmail.com",
+                "provider": null,
+                "provider_id": null,
+                "updated_at": "2015-03-01T20:01:41+00:00",
+                "created_at": "2015-03-01T20:01:41+00:00",
+                "account": {
+                    "id": 75,
+                    "properties": [
+                        {
+                            "created_at": "2015-03-01T17:57:29+00:00",
+                            "id": 55,
+                            "name": "test property",
+                            "updated_at": "2015-03-01T17:57:29+00:00"
+                        },
+                        {
+                            "created_at": "2015-03-01T17:58:20+00:00",
+                            "id": 56,
+                            "name": "test property updated",
+                            "updated_at": "2015-03-01T18:07:45+00:00"
+                        }
+                    ],
+                    "updated_at": "2015-03-01T20:01:41+00:00",
+                    "created_at": "2015-03-01T16:42:07+00:00"
+                }
             }
-        }
+        ]
 
 ### Create a User [POST]
 + Request (application/json)
@@ -62,6 +65,48 @@ Fobless api
                 "id": 75,
                 "properties": [],
                 "updated_at": "2015-03-01T16:42:07+00:00",
+                "created_at": "2015-03-01T16:42:07+00:00"
+            }
+        }
+
++ Request (application/json)
+
+        {
+            "first_name": "John",
+            "last_name": "Does",
+            "email": "john.does@gmail.com",
+            "password": "test_password",
+            "account_id": 75
+        }
+
++ Response 201 (application/json)
+    
+        {
+            "id": 74,
+            "first_name": "John",
+            "last_name": "Does",
+            "email": "john.does@gmail.com",
+            "provider": null,
+            "provider_id": null,
+            "updated_at": "2015-03-01T20:01:41+00:00",
+            "created_at": "2015-03-01T20:01:41+00:00",
+            "account": {
+                "id": 75,
+                "properties": [
+                    {
+                        "created_at": "2015-03-01T17:57:29+00:00",
+                        "id": 55,
+                        "name": "test property",
+                        "updated_at": "2015-03-01T17:57:29+00:00"
+                    },
+                    {
+                        "created_at": "2015-03-01T17:58:20+00:00",
+                        "id": 56,
+                        "name": "test property updated",
+                        "updated_at": "2015-03-01T18:07:45+00:00"
+                    }
+                ],
+                "updated_at": "2015-03-01T20:01:41+00:00",
                 "created_at": "2015-03-01T16:42:07+00:00"
             }
         }
