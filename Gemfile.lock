@@ -24,8 +24,6 @@ GEM
       json_schema (~> 0.3)
       multi_json (~> 1.10)
       rack (~> 1.5)
-    crack (0.4.2)
-      safe_yaml (~> 1.0.0)
     database_cleaner (1.4.0)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
@@ -129,7 +127,6 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.1)
-    safe_yaml (1.0.4)
     sequel (4.19.0)
     sequel-paranoid (0.4.3)
       sequel
@@ -166,9 +163,6 @@ GEM
       hitimes
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    webmock (1.20.4)
-      addressable (>= 2.3.6)
-      crack (>= 0.3.2)
     yard (0.8.7.6)
 
 PLATFORMS
@@ -207,4 +201,3 @@ DEPENDENCIES
   sinatra-contrib
   sinatra-router
   sucker_punch
-  webmock
