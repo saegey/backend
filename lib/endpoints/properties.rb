@@ -7,17 +7,18 @@ module Endpoints
       end
 
       get do
-        encode serialize(
-          Property.where(account_id: session[:account_id])
-        )
+        properties = Property.where(account_id: session[:account_id])
+        encode serialize(properties)
       end
 
       post do
-        params =  MultiJson.decode(request.env["rack.input"].read)
+        params.merge! MultiJson.decode(request.env["rack.input"].read)
 
         property = Property.new
-        property.name = params["name"]
-        property.account_id = session[:account_id]
+        property.set(
+          name: params[:name],
+          account_id: session[:account_id]
+        )
 
         if property.valid?
           property.save
@@ -30,22 +31,22 @@ module Endpoints
       end
 
       get "/:id" do
-        property = Property.first(
+        property = Mediators::AccountProperty.run(
           id: params[:id], 
           account_id: session[:account_id]
-        ) || halt(404)
+        )
         encode serialize(property)
       end
 
       patch "/:id" do |id|
-        data =  MultiJson.decode(request.env["rack.input"].read)
+        params.merge! MultiJson.decode(request.env["rack.input"].read)
         
-        property = Property.first(
-          id: params['id'],
+        property = Mediators::AccountProperty.run(
+          id: params[:id], 
           account_id: session[:account_id]
-        ) || halt(404)
+        )
         
-        property.name = data['name']
+        property.update(name: params[:name])
         
         if property.valid?
           property.save
@@ -56,10 +57,10 @@ module Endpoints
       end
 
       delete "/:id" do |id|
-        property = Property.first(
-          id: params['id'],
+        property = Mediators::AccountProperty.run(
+          id: params[:id], 
           account_id: session[:account_id]
-        ) || halt(404)
+        )
         property.destroy
         encode serialize(property)
       end

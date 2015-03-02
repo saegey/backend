@@ -6,6 +6,7 @@ env:
   - MY_PHONE_NUMBER=500-555-5006
   - DATABASE_URL=postgres:///travis_ci_test
   - DB=postgresql
+  - secure: "iuO0Tsv0onTTwuHAfAvnGbAgmyAh6h3jjV+zFHNwo1EOUNuaVxMiViFiqXtzcLaOGBW5MxGZUfiEJPZK8MwfJlRbHHuMqlW2gD6/Iz7D16m4Zfdy2VkvY3xNuV/LhtV667bDXzNf1GO+mX1lgs8dYNgTRdn0UbnoggDVwIY0nN8="
 language: ruby
 rvm:
 - 2.1.2

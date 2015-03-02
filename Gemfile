@@ -39,4 +39,5 @@ group :test do
   gem "rspec"
   gem 'json-schema'
   gem 'webmock'
+  gem "codeclimate-test-reporter"
 end
