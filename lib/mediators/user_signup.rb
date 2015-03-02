@@ -4,20 +4,13 @@ class Mediators::UserSignup < Mediators::Base
   end
 
   def call
-    account = Account.new
-    account.save
-
     user = User.new
     user.provider = @args[:provider]
     user.provider_id = @args[:uid]
-    user.account = account
-
-    account.user = user
-    account.save
     
     if user.valid?
       user.save
-      serialize(user)
+      user
     else
       user.errors
     end

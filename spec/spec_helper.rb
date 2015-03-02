@@ -8,14 +8,22 @@
 ENV["RACK_ENV"] = "test"
 
 require "bundler"
+require 'webmock/rspec'
+require 'dotenv'
+
 Bundler.require(:default, :test)
 
-require 'dotenv'
 Dotenv.load('.env.test')
 
 require_relative "../lib/initializer"
 
 include Helpers
+
+WebMock.disable_net_connect!(allow_localhost: false)
+
+OmniAuth.config.test_mode = true
+OmniAuth.config.add_mock(:github, {:uid => '12345'})
+OmniAuth.config.add_mock(:twitter, {:uid => '67890'})
 
 # pull in test initializers
 Pliny::Utils.require_glob("#{Config.root}/spec/support/**/*.rb")

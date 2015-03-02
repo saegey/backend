@@ -37,4 +37,5 @@ group :test do
   gem "rack-test"
   gem "rspec"
   gem 'json-schema'
+  gem 'webmock'
 end

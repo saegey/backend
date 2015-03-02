@@ -12,11 +12,11 @@ module Endpoints
           session[:account_id] = user.account_id
           encode user
         else
-          response = Mediators::UserSignup.run({
+          user = Mediators::UserSignup.run({
             provider: params[:provider],
             uid: request.env['omniauth.auth']['uid']
           })
-          encode response
+          encode serialize(user)
         end
       end
 
