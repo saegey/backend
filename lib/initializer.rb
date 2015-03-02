@@ -7,6 +7,9 @@ module Initializer
   end
 
   def self.require_config
+    if ENV['NEW_RELIC_LICENSE_KEY']
+      require 'newrelic_rpm'
+    end
     require_relative "../config/config"
   end
 

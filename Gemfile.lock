@@ -46,6 +46,7 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    newrelic_rpm (3.10.0.279)
     oauth (0.4.7)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
@@ -175,6 +176,7 @@ DEPENDENCIES
   dotenv
   json-schema
   multi_json
+  newrelic_rpm
   oj
   omniauth
   omniauth-github
