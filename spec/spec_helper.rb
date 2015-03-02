@@ -5,12 +5,15 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 #
+if ENV['CODECLIMATE_REPO_TOKEN']
+  require 'codeclimate-test-reporter'
+  CodeClimate::TestReporter.start
+end
 ENV["RACK_ENV"] = "test"
 
 require "bundler"
 require 'webmock/rspec'
 require 'dotenv'
-require "codeclimate-test-reporter"
 
 Bundler.require(:default, :test)
 
@@ -25,8 +28,6 @@ WebMock.disable_net_connect!(allow_localhost: false)
 OmniAuth.config.test_mode = true
 OmniAuth.config.add_mock(:github, {:uid => '12345'})
 OmniAuth.config.add_mock(:twitter, {:uid => '67890'})
-
-CodeClimate::TestReporter.start
 
 # pull in test initializers
 Pliny::Utils.require_glob("#{Config.root}/spec/support/**/*.rb")
