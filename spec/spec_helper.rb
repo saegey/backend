@@ -12,7 +12,7 @@ end
 ENV["RACK_ENV"] = "test"
 
 require "bundler"
-require 'webmock/rspec'
+# require 'webmock/rspec'
 require 'dotenv'
 
 Bundler.require(:default, :test)
