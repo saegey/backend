@@ -16,11 +16,8 @@ module Endpoints
       also_reload '../**/*.rb'
     end
 
-    use Rack::Session::Redis, {
-      url: ENV['REDISCLOUD_URL'] || "redis://localhost:6379/0",
-      namespace: "rack:session",
-      expire_after: 600
-    }
+    use Rack::Session::Redis, 
+      redis_server: ENV['REDISCLOUD_URL'] || "redis://localhost:6379/0"
 
     use OmniAuth::Builder do
       configure do |config|

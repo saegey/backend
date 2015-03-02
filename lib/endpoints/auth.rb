@@ -10,7 +10,7 @@ module Endpoints
         if user
           session[:user_id] = user.id
           session[:account_id] = user.account_id
-          encode user
+          encode serialize(user)
         else
           user = Mediators::UserSignup.run({
             provider: params[:provider],
@@ -24,7 +24,8 @@ module Endpoints
         data =  MultiJson.decode(request.env["rack.input"].read)
 
         user = User.authenticate(data["email"], data["password"]) || halt(401)
-        session = {session: user.id, account_id: user.account_id}
+        session[:user_id] = user.id
+        session[:account_id] = user.account_id
         encode serialize(user)
       end
 
