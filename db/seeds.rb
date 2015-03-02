@@ -18,6 +18,7 @@ require_relative "../lib/initializer"
 @user.last_name = 'Does'
 @user.email = 'john.does@gmail.com'
 @user.password = 'test123'
+@user.status = 'pending'
 @user.save
 
 @property = Property.new

@@ -26,6 +26,7 @@ class Serializers::User < Serializers::Base
       provider_id: arg.provider_id,
       updated_at:  arg.updated_at.try(:iso8601),
       created_at:  arg.created_at.try(:iso8601),
+      status:      arg.status,
       account:     Serializers::User.new(:account).serialize(arg.account),
     }
   end

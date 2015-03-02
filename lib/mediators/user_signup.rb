@@ -15,10 +15,4 @@ class Mediators::UserSignup < Mediators::Base
       user.errors
     end
   end
-
-  private
-
-  def serialize(data, structure = :default)
-    Serializers::User.new(structure).serialize(data)
-  end
 end

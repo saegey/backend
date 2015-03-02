@@ -14,6 +14,7 @@ class User < Sequel::Model
       account = Account.create(status: 'pending')
       self.account_id = account.id
     end
+    self.status = 'pending'
     super
   end
 

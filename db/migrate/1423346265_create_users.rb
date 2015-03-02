@@ -9,6 +9,7 @@ Sequel.migration do
       String       :provider_id
       String       :crypted_password
       Integer      :account_id
+      String       :status, null: true
       timestamptz  :created_at, default: Sequel.function(:now), null: false
       timestamptz  :updated_at
     end
