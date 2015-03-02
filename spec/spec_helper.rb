@@ -23,7 +23,7 @@ require_relative "../lib/initializer"
 
 include Helpers
 
-WebMock.disable_net_connect!(allow_localhost: false)
+# WebMock.disable_net_connect!(allow_localhost: false)
 
 OmniAuth.config.test_mode = true
 OmniAuth.config.add_mock(:github, {:uid => '12345'})
