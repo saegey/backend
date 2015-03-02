@@ -62,7 +62,7 @@ describe Endpoints::Users do
 
   describe 'DELETE /v1/users/:id' do
     it 'returns correct status code and conforms to schema' do
-      delete "/v1/users/#{@user.id}"
+      delete "/v1/users/#{@user.id}", {}, auth
       expect(last_response.status).to eq(200)
       expect(last_response).to match_response_schema("user")
       expect(User.first(id: @user.id)).to be_nil

@@ -2,7 +2,7 @@ module Endpoints
   class PropertyUnits < Base
     namespace "/v1/properties/:property_id/units" do
       before do
-        halt(401) unless session[:account_id]
+        authorize!
         content_type :json, charset: 'utf-8'
       end
 

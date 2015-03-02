@@ -4,6 +4,7 @@ describe Endpoints::PropertyUnits do
   include Committee::Test::Methods
   include Rack::Test::Methods
   include RSpec::Matchers
+  include Requests::JsonHelpers
 
   before do
     @user = User.new
@@ -29,25 +30,37 @@ describe Endpoints::PropertyUnits do
   describe "GET /v1/properties/id/units" do
     it 'returns correct status code and conforms to schema' do
       get "/v1/properties/#{@property.id}/units", {}, auth
+      
       expect(last_response.status).to eq(200)
-      # expect(last_response).to match_response_schema("property_units")
+      expect(json[0].property_id).to eq(@property.id)
+      expect(json[0].pin_code).to eq('1234')
+    end
+
+    it 'returns unauthorized status code' do
+      get "/v1/properties/#{@property.id}/units"
+      expect(last_response.status).to eq(401)
     end
   end
 
 
   describe 'POST /v1/properties/id/units' do
+    before do
+      @data = { property_id: @property.id, pin_code: '1234'}
+    end
+
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      data = {property_id: @property.id, pin_code: '1234'}
-      post "/v1/properties/#{@property.id}/units", MultiJson.encode(data), auth
-      
-      res = JSON.parse(last_response.body)
-      
+      post "/v1/properties/#{@property.id}/units", MultiJson.encode(@data), auth
+
       expect(last_response.status).to eq(201)
-      # expect(last_response).to match_response_schema("property_unit")
-      expect(res["property_id"]).to eq(data[:property_id])
-      expect(res["pin_code"]).to be_a(String)
-      expect(res["pin_code"].to_i).to be_a(Integer)
+      expect(json.property_id).to eq(@data[:property_id])
+      expect(json.pin_code).to be_a(String)
+      expect(json.pin_code.to_i).to be_a(Integer)
+    end
+
+    it 'returns unauthorized status code' do
+      post "/v1/properties/#{@property.id}/units", MultiJson.encode(@data)
+      expect(last_response.status).to eq(401)
     end
   end
 
@@ -57,6 +70,11 @@ describe Endpoints::PropertyUnits do
       get "/v1/properties/#{@property.id}/units/#{@property_unit.id}", {}, auth
       expect(last_response.status).to eq(200)
       expect(last_response).to match_response_schema("property_unit")
+    end
+
+    it 'returns unauthorized status code' do
+      get "/v1/properties/#{@property.id}/units/#{@property_unit.id}"
+      expect(last_response.status).to eq(401)
     end
   end
 

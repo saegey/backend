@@ -2,7 +2,7 @@ module Endpoints
   class Root < Base
 
     get "/v1/session" do
-      halt(401) unless session[:user_id]
+      authorize!
       encode session
     end
 

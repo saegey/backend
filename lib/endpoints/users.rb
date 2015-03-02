@@ -27,6 +27,7 @@ module Endpoints
       end
 
       get "/:id" do |id|
+        authorize!
         user = User.first(id: params[:id]) || halt(404)
         encode serialize(user)
       end
@@ -51,6 +52,7 @@ module Endpoints
       end
 
       delete "/:id" do
+        authorize!
         user = User.first(id: params[:id]) || halt(404)
         user.destroy
         encode serialize(user)
