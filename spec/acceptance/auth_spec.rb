@@ -4,19 +4,28 @@ describe Endpoints::Auth do
   include Committee::Test::Methods
   include Rack::Test::Methods
   include RSpec::Matchers
+  include Requests::JsonHelpers
 
   before do
-    @user = User.first(email: 'test@test.com')
+    @user = User.first
   end
 
   describe 'GET /v1/auth/password' do
     it 'returns correct status code and conforms to schema' do
       data = {
-        email: "test@test.com",
+        email: "john.does@gmail.com",
         password: "test123"
       }
       post "/v1/auth/password", MultiJson.encode(data)
+
       expect(last_response.status).to eq(200)
+      expect(json.first_name).to eq('John')
+      expect(json.last_name).to eq('Does')
+      expect(json.email).to eq('john.does@gmail.com')
+      expect(json.id).to be_a(Fixnum)
+      expect(json.account.id).to be_a(Fixnum)
+      expect(json.account.properties[0]["id"]).to be_a(Fixnum)
+      expect(json.account.properties[0]["name"]).to eq("test property")
     end
 
     it 'returns correct status code for invalid attempt' do
@@ -52,14 +61,12 @@ describe Endpoints::Auth do
   describe 'GET /v1/auth/github/callback' do
     it 'returns correct status code and response' do
       get "/v1/auth/github/callback"
-      data = JSON.parse(last_response.body)
       expect(last_response.status).to eq(200)
-      expect(data["provider_id"]).to eq("12345")
-      expect(data["provider"]).to eq("github")
-      expect(data["created_at"]).to_not be_nil
-      expect(data["updated_at"]).to_not be_nil
-      expect(data["account"]).to be_a(Hash)
-      expect(data["account"]["id"]).to be_a(Fixnum)
+      expect(json.provider_id).to eq("12345")
+      expect(json.provider).to eq("github")
+      expect(json.created_at).to_not be_nil
+      expect(json.updated_at).to_not be_nil
+      expect(json.account.id).to be_a(Fixnum)
     end
   end
 
@@ -68,12 +75,11 @@ describe Endpoints::Auth do
       get "/v1/auth/twitter/callback"
       data = JSON.parse(last_response.body)
       expect(last_response.status).to eq(200)
-      expect(data["provider_id"]).to eq("67890")
-      expect(data["provider"]).to eq("twitter")
-      expect(data["created_at"]).to_not be_nil
-      expect(data["updated_at"]).to_not be_nil
-      expect(data["account"]).to be_a(Hash)
-      expect(data["account"]["id"]).to be_a(Fixnum)
+      expect(json.provider_id).to eq("67890")
+      expect(json.provider).to eq("twitter")
+      expect(json.created_at).to_not be_nil
+      expect(json.updated_at).to_not be_nil
+      expect(json.account.id).to be_a(Fixnum)
     end
   end
 end

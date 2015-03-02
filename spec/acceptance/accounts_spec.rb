@@ -6,7 +6,7 @@ describe Endpoints::Accounts do
   include RSpec::Matchers
 
   before do
-    @user = User.first(email: 'test@test.com')
+    @user = User.first(email: 'john.does@gmail.com')
   end
 
   describe 'GET /v1/accounts/:id' do

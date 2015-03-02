@@ -14,9 +14,9 @@ Dotenv.load('.env.test')
 require_relative "../lib/initializer"
 
 @user = User.new
-@user.first_name = 'adam'
-@user.last_name = 'saegebarth'
-@user.email = 'test@test.com'
+@user.first_name = 'John'
+@user.last_name = 'Does'
+@user.email = 'john.does@gmail.com'
 @user.password = 'test123'
 @user.save
 
