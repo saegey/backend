@@ -12,14 +12,16 @@ module Endpoints
       end
 
       post do
-        data =  MultiJson.decode(request.env["rack.input"].read)
+        params.merge! MultiJson.decode(request.env["rack.input"].read)
 
         user = User.new
-        user.first_name = data["first_name"]
-        user.last_name = data["last_name"]
-        user.email = data["email"]
-        user.password = data["password"]
-        user.account_id = data["account_id"] if data.include? 'account_id'
+        user.update(
+          first_name: params[:first_name],
+          last_name: params[:last_name],
+          email: params[:email],
+          password: params[:password],
+          account_id: params[:account_id]
+        )
         user.save
 
         status 201
@@ -34,13 +36,19 @@ module Endpoints
 
       patch "/:id" do
         authorize!
-        data =  MultiJson.decode(request.env["rack.input"].read)
+        params.merge! MultiJson.decode(request.env["rack.input"].read)
 
-        user = User.first(id: params[:id]) || halt(404)
-        user.first_name = data["first_name"] if data.include? 'first_name'
-        user.last_name = data["last_name"] if data.include? 'last_name'
-        user.email = data["email"]  if data.include? 'email'
-        user.password = data["password"]  if data.include? 'password'
+        user = User.first(
+          id: params[:id],
+          account_id: session[:account_id]
+        ) || halt(404)
+        
+        user.update(
+          first_name: params[:first_name],
+          last_name: params[:last_name],
+          email: params[:email],
+          password: params[:password]
+        )
 
         if user.valid?
           user.save
@@ -53,8 +61,12 @@ module Endpoints
 
       delete "/:id" do
         authorize!
-        user = User.first(id: params[:id]) || halt(404)
+        user = User.first(
+          id: params[:id],
+          account_id: session[:account_id]
+        ) || halt(404)
         user.destroy
+
         encode serialize(user)
       end
 
