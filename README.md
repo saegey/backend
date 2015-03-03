@@ -4,3 +4,4 @@
 [![Build Status](https://travis-ci.org/fobless/backend.svg?branch=master)](https://travis-ci.org/fobless/backend)
 [![Test Coverage](https://codeclimate.com/github/fobless/backend/badges/coverage.svg)](https://codeclimate.com/github/fobless/backend)
 [![Dependency Status](https://gemnasium.com/fobless/backend.svg)](https://gemnasium.com/fobless/backend)
+[![Stories in Ready](https://badge.waffle.io/fobless/backend.svg?label=ready&title=Ready)](http://waffle.io/fobless/backend)
