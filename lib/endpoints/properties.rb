@@ -17,7 +17,8 @@ module Endpoints
         property = Property.new
         property.set(
           name: params[:name],
-          account_id: session[:account_id]
+          account_id: session[:account_id],
+          outbound_phone_numbers: params[:outbound_phone_numbers]
         )
 
         if property.valid?
@@ -46,7 +47,10 @@ module Endpoints
           account_id: session[:account_id]
         )
         
-        property.update(name: params[:name])
+        property.update(
+          name: params[:name],
+          outbound_phone_numbers: params[:outbound_phone_numbers]
+        )
         
         if property.valid?
           property.save

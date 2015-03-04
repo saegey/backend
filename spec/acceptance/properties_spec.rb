@@ -4,6 +4,7 @@ describe Endpoints::Properties do
   include Committee::Test::Methods
   include Rack::Test::Methods
   include RSpec::Matchers
+  include Requests::JsonHelpers
 
   before do
     @user = User.new
@@ -15,6 +16,7 @@ describe Endpoints::Properties do
 
     @property = Property.new
     @property.name = 'test property'
+    @property.outbound_phone_numbers = ["+12345678", "+198765432"]
     @property.account_id = @user.account_id
     @property.save
   end
@@ -23,6 +25,10 @@ describe Endpoints::Properties do
     it 'returns correct status code and conforms to schema' do
       get '/v1/properties', {}, auth
       expect(last_response.status).to eq(200)
+      expect(json[0].name).to eq('test property')
+      expect(json[0].outbound_phone_numbers.length).to eq(2)
+      expect(json[0].outbound_phone_numbers[0]).to eq("+12345678")
+      expect(json[0].outbound_phone_numbers[1]).to eq("+198765432")
     end
 
     it 'returns unauthorized status code' do
@@ -34,13 +40,17 @@ describe Endpoints::Properties do
   describe 'POST /v1/properties' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      data = {name: 'test name'}
+      data = {
+        name: 'test name', 
+        outbound_phone_numbers: ["+12345678", "+198765432"]
+      }
+
       post "/v1/properties", MultiJson.encode(data), auth
-      body = JSON.parse(last_response.body)
 
       expect(last_response.status).to eq(201)
-      # expect(last_response).to match_response_schema("property")
-      expect(body["name"]).to eq('test name')
+      expect(json.name).to eq('test name')
+      expect(json.outbound_phone_numbers[0]).to eq("+12345678")
+      expect(json.outbound_phone_numbers[1]).to eq("+198765432")
     end
   end
 
@@ -48,21 +58,25 @@ describe Endpoints::Properties do
     it 'returns correct status code and conforms to schema' do
       get "/v1/properties/#{@property.id}", nil, auth
       expect(last_response.status).to eq(200)
-      # expect(last_response).to match_response_schema("property")
+      expect(json.name).to eq('test property')
+      expect(json.outbound_phone_numbers[0]).to eq("+12345678")
+      expect(json.outbound_phone_numbers[1]).to eq("+198765432")
     end
   end
 
   describe 'PATCH /v1/properties/:id' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      data = { name: "test" }
+      data = {
+        name: 'test name new', 
+        outbound_phone_numbers: ["+198765432"]
+      }
       patch "/v1/properties/#{@property.id}", MultiJson.encode(data), auth
 
-      res = JSON.parse(last_response.body)
-
       expect(last_response.status).to eq(200)
-      # expect(last_response).to match_response_schema("property")
-      expect(res["name"]).to eq("test")
+      expect(json.name).to eq("test name new")
+      expect(json.outbound_phone_numbers[0]).to eq("+198765432")
+      expect(json.outbound_phone_numbers.length).to eq(1)
     end
   end
 
