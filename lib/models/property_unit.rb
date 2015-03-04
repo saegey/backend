@@ -5,7 +5,7 @@ class PropertyUnit < Sequel::Model
 
   def validate
     super
-    validates_presence [:pin_code]
+    # validates_presence [:pin_code]
   end
 
   # def before_save

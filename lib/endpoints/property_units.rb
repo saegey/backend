@@ -21,8 +21,7 @@ module Endpoints
         property_unit = PropertyUnit.new
         property_unit.set(
           property_id: params[:property_id],
-          account_id: session[:account_id],
-          pin_code: params[:pin_code]
+          account_id: session[:account_id]
         )
 
         if property_unit.valid?
@@ -53,8 +52,7 @@ module Endpoints
         ) || halt(404)
 
         property_unit.update(
-          property_id: params[:property_id],
-          pin_code: params[:pin_code]
+          property_id: params[:property_id]
         )
 
         if property_unit.valid?

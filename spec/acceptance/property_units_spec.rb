@@ -22,7 +22,6 @@ describe Endpoints::PropertyUnits do
     @property_unit = PropertyUnit.new
     @property_unit.property_id = @property.id
     @property_unit.account_id = @user.account_id
-    @property_unit.pin_code = '1234'
     @property_unit.updated_at = Time.now
     @property_unit.save
   end
@@ -33,7 +32,6 @@ describe Endpoints::PropertyUnits do
       
       expect(last_response.status).to eq(200)
       expect(json[0].property_id).to eq(@property.id)
-      expect(json[0].pin_code).to eq('1234')
     end
 
     it 'returns unauthorized status code' do
@@ -45,7 +43,7 @@ describe Endpoints::PropertyUnits do
 
   describe 'POST /v1/properties/id/units' do
     before do
-      @data = { property_id: @property.id, pin_code: '1234'}
+      @data = { property_id: @property.id }
     end
 
     it 'returns correct status code and conforms to schema' do
@@ -54,8 +52,6 @@ describe Endpoints::PropertyUnits do
 
       expect(last_response.status).to eq(201)
       expect(json.property_id).to eq(@data[:property_id])
-      expect(json.pin_code).to be_a(String)
-      expect(json.pin_code.to_i).to be_a(Integer)
     end
 
     it 'returns unauthorized status code' do
@@ -81,7 +77,7 @@ describe Endpoints::PropertyUnits do
   describe 'PATCH /properties/:property_id/units/:id' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      patch "/v1/properties/#{@property.id}/units/#{@property_unit.id}", MultiJson.encode({pin_code: "12345"}), auth
+      patch "/v1/properties/#{@property.id}/units/#{@property_unit.id}", MultiJson.encode({}), auth
       expect(last_response.status).to eq(201)
       # expect(last_response).to match_response_schema("property_unit")
     end

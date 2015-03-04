@@ -19,7 +19,6 @@ describe Endpoints::PropertyUnits do
     @property_unit = PropertyUnit.new
     @property_unit.property_id = @property.id
     @property_unit.account_id = @user.account_id
-    @property_unit.pin_code = '1234'
     @property_unit.save
   end
 
