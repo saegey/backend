@@ -386,22 +386,18 @@ Properties units linked to an account for currently authenticated user
                 "id": 34,
                 "updated_at": null,
                 "property_id": 56,
-                "pin_code": "4060"
             },
             {
                 "created_at": "2015-03-01T18:30:47+00:00",
                 "id": 35,
                 "updated_at": null,
                 "property_id": 56,
-                "pin_code": "8238"
             }
         ]
 
 ### Create Property Unit [POST]
 
 + Request (application/json)
-    
-        { "pin_code": "1234" }
 
 + Response 201 (application/json)
     
@@ -409,20 +405,7 @@ Properties units linked to an account for currently authenticated user
             "created_at": "2015-03-01T18:54:42+00:00",
             "id": 37,
             "updated_at": null,
-            "property_id": 56,
-            "pin_code": "1234"
-        }
-
-+ Request (application/json)
-    
-        {}
-
-+ Response 400 (application/json)
-
-        {
-            "pin_code": [
-                "is not present"
-            ]
+            "property_id": 56
         }
 
 ## /v1/properties/{property_id}/units/{id}
@@ -441,15 +424,12 @@ Property unit linked to an account for currently authenticated user
             "created_at": "2015-03-01T18:37:50+00:00",
             "id": 36,
             "updated_at": null,
-            "property_id": 56,
-            "pin_code": "2398"
+            "property_id": 56
         }
 
 ### Update Property Unit [PATCH]
 
 + Request (application/json)
-
-        { "pin_code": "4060" }
 
 + Response 200 (application/json)
 
@@ -457,20 +437,7 @@ Property unit linked to an account for currently authenticated user
             "created_at": "2015-03-01T18:30:21+00:00",
             "id": 34,
             "updated_at": "2015-03-01T18:30:21+00:00",
-            "property_id": 56,
-            "pin_code": "4060"
-        }
-
-+ Request (application/json)
-
-        { "pin_code": "" }
-
-+ Response 400 (application/json)
-
-        {
-            "pin_code": [
-                "is not present"
-            ]
+            "property_id": 56
         }
 
 ### Delete Property Unit [DELETE]
@@ -481,7 +448,6 @@ Property unit linked to an account for currently authenticated user
             "created_at": "2015-03-01T18:54:42+00:00",
             "id": 37,
             "updated_at": "2015-03-01T18:30:21+00:00",
-            "property_id": 56,
-            "pin_code": "3070"
+            "property_id": 56
         }
 
