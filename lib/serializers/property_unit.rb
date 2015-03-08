@@ -9,13 +9,12 @@ class Serializers::PropertyUnit < Serializers::Base
     }
   end
 
-    structure(:nested) do |arg|
+  structure(:nested) do |arg|
     {
       id:           arg.id,
       phone_number: arg.phone_number,
       created_at:   arg.created_at.try(:iso8601),
-      updated_at:   arg.updated_at.try(:iso8601),
-      phone_number: arg.phone_number
+      updated_at:   arg.updated_at.try(:iso8601)
     }
   end
 end

@@ -1,4 +1,6 @@
 class Sequel::Model
+  plugin :timestamps, update_on_create: true
+
   def validates_phone_number(phone_number)
     phone_number = send(phone_number)
     if phone_number.nil? == false

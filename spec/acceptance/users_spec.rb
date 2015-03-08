@@ -1,11 +1,6 @@
 require "spec_helper"
 
 describe Endpoints::Users do
-  include Committee::Test::Methods
-  include Rack::Test::Methods
-  include RSpec::Matchers
-  include Requests::JsonHelpers
-
   # let(:body) { { :first_name => "test"}.to_json }
 
   before do
@@ -40,7 +35,7 @@ describe Endpoints::Users do
       data = {
         first_name: "John", 
         last_name: "Jones", 
-        email: "test@test.com",
+        email: "test1@test.com",
         password: "test123"
       }
       post '/v1/users', MultiJson.encode(data)

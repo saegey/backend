@@ -1,10 +1,6 @@
 require "spec_helper"
 
 describe Endpoints::Accounts do
-  include Committee::Test::Methods
-  include Rack::Test::Methods
-  include RSpec::Matchers
-
   before do
     @user = User.first(email: 'john.does@gmail.com')
   end
