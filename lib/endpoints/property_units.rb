@@ -21,7 +21,8 @@ module Endpoints
         property_unit = PropertyUnit.new
         property_unit.set(
           property_id: params[:property_id],
-          account_id: session[:account_id]
+          account_id: session[:account_id],
+          phone_number: params[:phone_number]
         )
 
         if property_unit.valid?
@@ -52,12 +53,13 @@ module Endpoints
         ) || halt(404)
 
         property_unit.update(
-          property_id: params[:property_id]
+          property_id: params[:property_id],
+          phone_number: params[:phone_number]
         )
 
         if property_unit.valid?
           property_unit.save
-          status 201
+          status 200
           encode serialize(property_unit)
         else
           status 400

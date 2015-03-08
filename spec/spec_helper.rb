@@ -53,6 +53,10 @@ RSpec.configure do |config|
   config.expect_with :minitest
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
+  config.include Requests::JsonHelpers
+  config.include Committee::Test::Methods
+  config.include Rack::Test::Methods
+  config.include RSpec::Matchers
 
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing

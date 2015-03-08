@@ -1,5 +1,6 @@
 class PropertyUnit < Sequel::Model
   many_to_one :property
+  many_to_one :account
   plugin :timestamps
   plugin :validation_helpers
 
