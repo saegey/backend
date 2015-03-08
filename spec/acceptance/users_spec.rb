@@ -41,6 +41,19 @@ describe Endpoints::Users do
       post '/v1/users', MultiJson.encode(data)
       expect(last_response.status).to eq(201)
     end
+
+    it 'returns duplicate email error' do
+      header "Content-Type", "application/json"
+      data = {
+        first_name: "John", 
+        last_name: "Jones", 
+        email: "john.does@gmail.com",
+        password: "test123"
+      }
+      post '/v1/users', MultiJson.encode(data)
+      expect(last_response.status).to eq(400)
+      expect(json.email[0]).to eq('is already taken')
+    end
   end
 
   describe 'PATCH /v1/users' do
@@ -50,13 +63,19 @@ describe Endpoints::Users do
       patch "/v1/users/#{@user.id}", MultiJson.encode(data), auth
       expect(last_response.status).to eq(200)
     end
+
+    it 'returns duplicate email error' do
+      header "Content-Type", "application/json"
+      patch "/v1/users/#{@user.id}", MultiJson.encode({email: "john.does@gmail.com"}), auth
+      expect(last_response.status).to eq(400)
+      expect(json.email[0]).to eq('is already taken')
+    end
   end
 
   describe 'DELETE /v1/users/:id' do
     it 'returns correct status code and conforms to schema' do
       delete "/v1/users/#{@user.id}", {}, auth
       expect(last_response.status).to eq(200)
-      # expect(last_response).to match_response_schema("user")
       expect(User.first(id: @user.id)).to be_nil
     end
   end
