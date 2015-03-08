@@ -1,11 +1,6 @@
 require "spec_helper"
 
 describe Endpoints::Auth do
-  include Committee::Test::Methods
-  include Rack::Test::Methods
-  include RSpec::Matchers
-  include Requests::JsonHelpers
-
   before do
     @user = User.first
   end

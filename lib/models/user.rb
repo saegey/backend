@@ -1,6 +1,5 @@
 class User < Sequel::Model
   include Shield::Model	
-  plugin :timestamps, update_on_create: true
   plugin :validation_helpers
 
   many_to_one :account
@@ -10,12 +9,11 @@ class User < Sequel::Model
   end
 
   def before_create
+    super
     if self.account_id == nil
       account = Account.create(status: 'pending')
       self.account_id = account.id
     end
-    self.status = 'pending'
-    super
   end
 
   def after_create
@@ -24,8 +22,20 @@ class User < Sequel::Model
     account.save
   end
 
-  # def validate
-  #   super
-  #   validates_presence [:first_name, :last_name, :email]
-  # end
+  def before_save
+    super
+    if self.email.nil? || self.first_name.nil? || self.last_name.nil?
+      self.status = 'pending'
+    else
+      self.status = 'active'
+    end
+  end
+
+  def validate
+    super
+    if self.email
+      validates_format /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, :email
+      validates_unique :email
+    end
+  end
 end

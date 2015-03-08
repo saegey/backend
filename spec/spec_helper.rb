@@ -37,13 +37,10 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :truncation
   end
-
-  config.before :all do
-    load('db/seeds.rb') if File.exist?('db/seeds.rb')
-  end
   
   config.before :each do
     DatabaseCleaner.start
+    load('db/seeds.rb') if File.exist?('db/seeds.rb')
   end
 
   config.after :each do
@@ -62,7 +59,7 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  # config.order = 'random'
+  config.order = 'random'
 
   # the rack app to be tested with rack-test:
   def app
