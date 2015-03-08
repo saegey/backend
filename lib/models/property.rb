@@ -6,9 +6,10 @@ class Property < Sequel::Model
   plugin      :validation_helpers
   plugin      :timestamps, update_on_create: true
   plugin      :serialization, :json, :outbound_phone_numbers
-  
+
   def validate
     super
     validates_presence [:name, :account_id]
+    validates_phone_number :outbound_phone_numbers
   end
 end

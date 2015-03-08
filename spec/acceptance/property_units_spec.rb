@@ -18,7 +18,7 @@ describe Endpoints::PropertyUnits do
     @property_unit.property_id = @property.id
     @property_unit.account_id = @user.account_id
     @property_unit.updated_at = Time.now
-    @property_unit.phone_number = "+12345678"
+    @property_unit.phone_number = "+12345678123"
     @property_unit.save
   end
 
@@ -28,7 +28,7 @@ describe Endpoints::PropertyUnits do
       
       expect(last_response.status).to eq(200)
       expect(json[0].property_id).to eq(@property.id)
-      expect(json[0].phone_number).to eq("+12345678")
+      expect(json[0].phone_number).to eq("+12345678123")
     end
 
     it 'returns unauthorized status code' do
@@ -40,7 +40,7 @@ describe Endpoints::PropertyUnits do
 
   describe 'POST /v1/properties/id/units' do
     before do
-      @data = { property_id: @property.id, phone_number: "+12345678" }
+      @data = { property_id: @property.id, phone_number: "+12345678123" }
     end
 
     it 'returns correct status code and conforms to schema' do
@@ -49,7 +49,7 @@ describe Endpoints::PropertyUnits do
 
       expect(last_response.status).to eq(201)
       expect(json.property_id).to eq(@data[:property_id])
-      expect(json.phone_number).to eq("+12345678")
+      expect(json.phone_number).to eq("+12345678123")
     end
 
     it 'returns unauthorized status code' do
@@ -64,7 +64,7 @@ describe Endpoints::PropertyUnits do
       get "/v1/properties/#{@property.id}/units/#{@property_unit.id}", {}, auth
       expect(last_response.status).to eq(200)
       expect(json.id).to eq(@property_unit.id)
-      expect(json.phone_number).to eq("+12345678")
+      expect(json.phone_number).to eq("+12345678123")
     end
 
     it 'returns unauthorized status code' do
@@ -75,7 +75,7 @@ describe Endpoints::PropertyUnits do
 
   describe 'PATCH /properties/:property_id/units/:id' do
     before do
-      @data = { phone_number: "+19876543" }
+      @data = { phone_number: "+19876543987" }
     end
 
     it 'returns correct status code and conforms to schema' do
@@ -83,7 +83,7 @@ describe Endpoints::PropertyUnits do
 
       patch "/v1/properties/#{@property.id}/units/#{@property_unit.id}", MultiJson.encode(@data), auth
       expect(last_response.status).to eq(200)
-      expect(json.phone_number).to eq("+19876543")
+      expect(json.phone_number).to eq("+19876543987")
       expect(json.id).to eq(@property_unit.id)
     end
 
@@ -98,7 +98,7 @@ describe Endpoints::PropertyUnits do
       delete "/v1/properties/#{@property.id}/units/#{@property_unit.id}", {}, auth
       expect(last_response.status).to eq(200)
       expect(json.id).to eq(@property_unit.id)
-      expect(json.phone_number).to eq("+12345678")
+      expect(json.phone_number).to eq("+12345678123")
     end
 
     it 'returns unauthorized status code' do
