@@ -17,7 +17,8 @@ module Endpoints
         property = Property.new
         property.set(
           name: params[:name],
-          account_id: session[:account_id]
+          account_id: session[:account_id],
+          outbound_phone_numbers: params[:outbound_phone_numbers]
         )
 
         if property.valid?
@@ -31,22 +32,25 @@ module Endpoints
       end
 
       get "/:id" do
-        property = Mediators::AccountProperty.run(
+        property = Property.first(
           id: params[:id], 
           account_id: session[:account_id]
-        )
+        ) || halt(404)
         encode serialize(property)
       end
 
       patch "/:id" do |id|
         params.merge! MultiJson.decode(request.env["rack.input"].read)
         
-        property = Mediators::AccountProperty.run(
+        property = Property.first(
           id: params[:id], 
           account_id: session[:account_id]
-        )
+        ) || halt(404)
         
-        property.update(name: params[:name])
+        property.update(
+          name: params[:name],
+          outbound_phone_numbers: params[:outbound_phone_numbers]
+        )
         
         if property.valid?
           property.save
@@ -57,10 +61,10 @@ module Endpoints
       end
 
       delete "/:id" do |id|
-        property = Mediators::AccountProperty.run(
+        property = Property.first(
           id: params[:id], 
           account_id: session[:account_id]
-        )
+        ) || halt(404)
         property.destroy
         encode serialize(property)
       end
