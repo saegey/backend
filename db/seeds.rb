@@ -24,6 +24,13 @@ require_relative "../lib/initializer"
 @property = Property.new
 @property.name = 'test property'
 @property.account_id = @user.account_id
+@property.outbound_phone_numbers = ["+12065189761"]
+@property.save
+
+@property = Property.new
+@property.name = 'test property1'
+@property.account_id = @user.account_id
+@property.outbound_phone_numbers = ["+12065189761", "+12067778888"]
 @property.save
 
 @property_unit = PropertyUnit.new
