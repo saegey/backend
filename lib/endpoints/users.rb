@@ -15,17 +15,21 @@ module Endpoints
         params.merge! MultiJson.decode(request.env["rack.input"].read)
 
         user = User.new
-        user.update(
+        user.set(
           first_name: params[:first_name],
           last_name: params[:last_name],
           email: params[:email],
           password: params[:password],
           account_id: params[:account_id]
         )
-        user.save
-
-        status 201
-        encode serialize(user)
+        if user.valid?
+          user.save
+          status 201
+          encode serialize(user)
+        else
+          status 400
+          encode user.errors
+        end
       end
 
       get "/:id" do |id|
@@ -43,7 +47,7 @@ module Endpoints
           account_id: session[:account_id]
         ) || halt(404)
         
-        user.update(
+        user.set(
           first_name: params[:first_name],
           last_name: params[:last_name],
           email: params[:email],
