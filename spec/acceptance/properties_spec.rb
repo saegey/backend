@@ -16,7 +16,7 @@ describe Endpoints::Properties do
 
     @property = Property.new
     @property.name = 'test property'
-    @property.outbound_phone_numbers = ["+12345678", "+198765432"]
+    @property.outbound_phone_numbers = ["+12345678123", "+19876543212"]
     @property.account_id = @user.account_id
     @property.save
   end
@@ -27,8 +27,8 @@ describe Endpoints::Properties do
       expect(last_response.status).to eq(200)
       expect(json[0].name).to eq('test property')
       expect(json[0].outbound_phone_numbers.length).to eq(2)
-      expect(json[0].outbound_phone_numbers[0]).to eq("+12345678")
-      expect(json[0].outbound_phone_numbers[1]).to eq("+198765432")
+      expect(json[0].outbound_phone_numbers[0]).to eq("+12345678123")
+      expect(json[0].outbound_phone_numbers[1]).to eq("+19876543212")
     end
 
     it 'returns unauthorized status code' do
@@ -42,15 +42,15 @@ describe Endpoints::Properties do
       header "Content-Type", "application/json"
       data = {
         name: 'test name', 
-        outbound_phone_numbers: ["+12345678", "+198765432"]
+        outbound_phone_numbers: ["+12345678123", "+19876543212"]
       }
 
       post "/v1/properties", MultiJson.encode(data), auth
 
       expect(last_response.status).to eq(201)
       expect(json.name).to eq('test name')
-      expect(json.outbound_phone_numbers[0]).to eq("+12345678")
-      expect(json.outbound_phone_numbers[1]).to eq("+198765432")
+      expect(json.outbound_phone_numbers[0]).to eq("+12345678123")
+      expect(json.outbound_phone_numbers[1]).to eq("+19876543212")
     end
   end
 
@@ -59,8 +59,8 @@ describe Endpoints::Properties do
       get "/v1/properties/#{@property.id}", nil, auth
       expect(last_response.status).to eq(200)
       expect(json.name).to eq('test property')
-      expect(json.outbound_phone_numbers[0]).to eq("+12345678")
-      expect(json.outbound_phone_numbers[1]).to eq("+198765432")
+      expect(json.outbound_phone_numbers[0]).to eq("+12345678123")
+      expect(json.outbound_phone_numbers[1]).to eq("+19876543212")
     end
   end
 
@@ -69,13 +69,13 @@ describe Endpoints::Properties do
       header "Content-Type", "application/json"
       data = {
         name: 'test name new', 
-        outbound_phone_numbers: ["+198765432"]
+        outbound_phone_numbers: ["+19876543200"]
       }
       patch "/v1/properties/#{@property.id}", MultiJson.encode(data), auth
 
       expect(last_response.status).to eq(200)
       expect(json.name).to eq("test name new")
-      expect(json.outbound_phone_numbers[0]).to eq("+198765432")
+      expect(json.outbound_phone_numbers[0]).to eq("+19876543200")
       expect(json.outbound_phone_numbers.length).to eq(1)
     end
   end
