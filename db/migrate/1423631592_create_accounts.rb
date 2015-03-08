@@ -4,7 +4,7 @@ Sequel.migration do
       primary_key  :id
       timestamptz  :created_at, default: Sequel.function(:now), null: false
       timestamptz  :updated_at
-      Integer         :user_id
+      Integer      :user_id
       String       :status
     end
   end
