@@ -29,7 +29,7 @@ module Endpoints
         user = User.authenticate(data["email"], data["password"]) || halt(401)
         session[:user_id] = user.id
         session[:account_id] = user.account_id
-        encode({token: session.id})
+        encode({auth_token: session.id})
       end
 
       get "/logout" do
