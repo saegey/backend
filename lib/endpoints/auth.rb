@@ -1,6 +1,10 @@
 module Endpoints
   class Auth < Base
     namespace "/v1/auth" do
+      before do
+        content_type :json, charset: 'utf-8'
+      end
+
       get '/:provider/callback' do
         user = User.find(
           provider: params[:provider],
@@ -22,11 +26,10 @@ module Endpoints
 
       post '/password' do
         data =  MultiJson.decode(request.env["rack.input"].read)
-
         user = User.authenticate(data["email"], data["password"]) || halt(401)
         session[:user_id] = user.id
         session[:account_id] = user.account_id
-        encode serialize(user)
+        encode({token: session.id})
       end
 
       get "/logout" do
