@@ -6,6 +6,10 @@ module Endpoints
       encode session
     end
 
+    get '/v1/debug' do
+      encode env.inspect
+    end
+
     private
 
     def serialize(data, structure = :default)
