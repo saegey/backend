@@ -71,7 +71,8 @@ RSpec.configure do |config|
       "rack.session" => {
         account_id: @user.account_id,
         user_id: @user.id
-      }
+      },
+      'HTTP_ACCEPT' => "application/vnd.fobless+json; version=1"
     }
   end
 end

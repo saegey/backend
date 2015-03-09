@@ -1,16 +1,14 @@
 module Endpoints
   class PropertyUnitGuests < Base
-    namespace "/v1/properties/:property_id/units/:unit_id/guests" do
+    namespace "/property_unit_guests" do
       before do
+        check_version!
         authorize!
         content_type :json, charset: 'utf-8'
       end
 
       get do
-        guests = PropertyUnitGuest.where(
-          property_unit_id: params[:unit_id],
-          account_id: session[:account_id]
-        ) || halt(404)
+        guests = PropertyUnitGuest.where(account_id: session[:account_id]) || halt(404)
         encode serialize(guests)
       end
 
@@ -22,7 +20,7 @@ module Endpoints
         encode serialize(property_unit_guest)
       end
 
-      get "/:id" do |property_id, unit_id, id|
+      get "/:id" do |id|
         property_unit_guest = PropertyUnitGuest.first(id: id) || halt(404)
         encode serialize(property_unit_guest)
       end

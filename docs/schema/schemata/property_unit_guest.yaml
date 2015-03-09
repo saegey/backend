@@ -39,7 +39,7 @@ links:
   rel: destroy
   title: Delete
 - description: Info for existing property_unit_guest.
-  href: "/v1/properties/{(%2Fschemata%2Fproperty_unit_guest%23%2Fdefinitions%2Fidentity)}"
+  href: "/property_unit_guests/{(%2Fschemata%2Fproperty_unit_guest%23%2Fdefinitions%2Fidentity)}"
   method: GET
   rel: self
   title: Info
