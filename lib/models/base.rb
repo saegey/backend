@@ -1,5 +1,6 @@
 class Sequel::Model
   plugin :timestamps, update_on_create: true
+  plugin :validation_helpers
 
   def validates_phone_number(phone_number)
     phone_number = send(phone_number)

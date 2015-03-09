@@ -30,6 +30,8 @@ gem 'shield'
 
 group :development, :test do
   gem "pry-byebug"
+  gem 'guard'
+  gem 'guard-rspec'
 end
 
 group :test do
