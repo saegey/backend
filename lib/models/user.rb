@@ -1,6 +1,5 @@
 class User < Sequel::Model
-  include Shield::Model	
-  plugin :validation_helpers
+  include Shield::Model
 
   many_to_one :account
 
