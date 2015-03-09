@@ -30,6 +30,8 @@ gem 'shield'
 
 group :development, :test do
   gem "pry-byebug"
+  gem 'guard'
+  gem 'guard-rspec'
 end
 
 group :test do
@@ -40,4 +42,5 @@ group :test do
   gem "rspec"
   gem 'json-schema'
   gem "codeclimate-test-reporter"
+  gem 'mock_redis'
 end
