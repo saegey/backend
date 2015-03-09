@@ -37,3 +37,11 @@ property_unit.account_id = user.account_id
 property_unit.phone_number = "+12345678123"
 property_unit.save
 
+property_unit_guest = PropertyUnitGuest.new
+property_unit_guest.account_id = user.account_id
+property_unit_guest.property_unit_id = property_unit.id
+property_unit_guest.pin_code = '12345'
+property_unit_guest.expires_at = DateTime.now + 1
+property_unit_guest.email = "guest@test.com"
+property_unit_guest.phone_number = "+12223334444"
+property_unit_guest.save
