@@ -9,30 +9,15 @@ describe Endpoints::PropertyUnitGuests do
   end
 
   let(:collection_uri) {
-    "/v1/properties/#{@property.id}/units/#{@property_unit.id}/guests"
+    "/property_unit_guests"
   }
   let(:resource_uri) {
     "#{collection_uri}/#{@guest.id}"
   }
 
-  describe "GET /v1/properties/:property_id/units/:property_unit_id/guests/:id" do
+  describe "GET /property_unit_guests" do
     it "succeeds" do
-      get resource_uri, {}, auth
-      expect(last_response.status).to eq(200)
-      expect(json.id).to eq(@guest.id)
-      expect(json.pin_code).to eq(@guest.pin_code)
-      expect(DateTime.parse(json.expires_at)).to be > DateTime.now
-    end
-
-    it "unauthorized" do
-      get collection_uri, {}
-      expect(last_response.status).to eq(401)
-    end
-  end
-
-  describe "GET /v1/properties/:property_id/units/:property_unit_id/guests" do
-    it "succeeds" do
-      get collection_uri, {}, auth
+      get "/property_unit_guests", {}, auth
       expect(last_response.status).to eq(200)
       expect(json[0].id).to eq(@guest.id)
       expect(json[0].pin_code).to eq(@guest.pin_code)
@@ -40,7 +25,22 @@ describe Endpoints::PropertyUnitGuests do
     end
 
     it "unauthorized" do
-      get collection_uri, {}
+      get collection_uri, {}, {'HTTP_ACCEPT' => "application/vnd.fobless+json; version=1"}
+      expect(last_response.status).to eq(401)
+    end
+  end
+
+  describe "GET /property_unit_guests/:id" do
+    it "succeeds" do
+      get "/property_unit_guests/#{@guest.id}", {}, auth
+      expect(last_response.status).to eq(200)
+      expect(json.id).to eq(@guest.id)
+      expect(json.pin_code).to eq(@guest.pin_code)
+      expect(DateTime.parse(json.expires_at)).to be > DateTime.now
+    end
+
+    it "unauthorized" do
+      get collection_uri, {}, {'HTTP_ACCEPT' => "application/vnd.fobless+json; version=1"}
       expect(last_response.status).to eq(401)
     end
   end

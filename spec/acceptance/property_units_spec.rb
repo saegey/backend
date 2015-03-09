@@ -22,6 +22,7 @@ describe Endpoints::PropertyUnits do
     @property_unit.save
   end
 
+
   describe "GET /v1/properties/id/units" do
     it 'returns correct status code and conforms to schema' do
       get "/v1/properties/#{@property.id}/units", {}, auth

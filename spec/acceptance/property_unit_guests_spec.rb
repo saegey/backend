@@ -13,24 +13,19 @@ describe Endpoints::PropertyUnitGuests do
   end
 
   let(:collection_uri) {
-    "/v1/properties/#{@property.id}/units/#{@property_unit.id}/guests"
+    "/property_unit_guests"
   }
 
   before do
-    @user = User.first
-    @property_unit_guest = PropertyUnitGuest.first
-
-    # temporarily touch #updated_at until we can fix prmd
-    @property_unit_guest.updated_at
-    @property_unit_guest.save
-    @property_unit = @property_unit_guest.property_unit
-    @property = @property_unit.property
-
+    @user = User.first(first_name: "John")
+    @property = @user.account.properties.last
+    @property_unit = @property.property_units.first
+    @guest = @property_unit.property_unit_guests.first
   end
 
-  describe 'GET /v1/properties/:property_id/units/:property_unit_id/guests/:id' do
+  describe 'GET /property_unit_guests/:id' do
     it 'returns correct status code and conforms to schema' do
-      get collection_uri, {}, auth
+      get "collection_uri/#{@guest.id}", {}, auth
       expect(last_response.status).to eq(200)
       assert_schema_conform
     end
