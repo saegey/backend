@@ -15,4 +15,4 @@ ln -s ../../pre-commit.sh .git/hooks/pre-commit
 
 
 ### API Documentation
-[Docs](https://github.com/saegey/backend/blob/property_unit_guest_endpoint/docs/schema/schema.md)
+[Docs](https://github.com/saegey/backend/blob/property_unit_guest_endpoint/docs/schema.md)
