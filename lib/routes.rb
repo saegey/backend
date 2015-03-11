@@ -16,6 +16,7 @@ Routes = Rack::Builder.new do
     # mount all endpoints here
     mount Endpoints::Properties
     mount Endpoints::PropertyUnits
+    mount Endpoints::PropertyUnitGuests
     mount Endpoints::Users
     mount Endpoints::Accounts
     mount Endpoints::Auth

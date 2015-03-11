@@ -13,7 +13,6 @@ describe Endpoints::Auth do
     Redis.new(url: "redis://localhost:6379/0")
   end
 
-
   describe 'GET /v1/auth/password' do
     it 'returns correct status code and conforms to schema' do
       data = {
@@ -21,10 +20,9 @@ describe Endpoints::Auth do
         password: "test123"
       }
       post "/v1/auth/password", MultiJson.encode(data), api_version
-      data = Marshal.load(redis.get(json.token))
-      
+      data = Marshal.load(redis.get(json.auth_token))
       expect(last_response.status).to eq(200)
-      expect(json.token.length).to eq(64)
+      expect(json.auth_token.length).to eq(64)
       expect(data["user_id"]).to eq(@user.id)
       expect(data["account_id"]).to eq(@user.account_id)
     end

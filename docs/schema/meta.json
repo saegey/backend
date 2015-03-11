@@ -1,0 +1,10 @@
+{
+ "description": "Fobless API",
+ "id": "fobless-api",
+ "links": [{
+   "href": "https://fobless-backend.herokuapp.com",
+   "rel": "self"
+ }],
+ "title": "Fobless"
+}
+

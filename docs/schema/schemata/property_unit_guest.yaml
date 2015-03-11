@@ -1,0 +1,93 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: Property Unit Guests
+definitions:
+  created_at:
+    description: when property unit guest was created
+    example: '2012-01-01T12:00:00Z'
+    format: date-time
+    type:
+    - string
+  id:
+    description: unique identifier of property_unit_guest
+    example: 1
+    type:
+    - integer
+  identity:
+    "$ref": "/schemata/property_unit_guest#/definitions/id"
+  updated_at:
+    description: when property_unit_guest was updated
+    example: '2012-01-01T12:00:00Z'
+    format: date-time
+    type:
+    - string
+  pin_code:
+    description: guest pin code
+    example: '12345'
+    type:
+    - string
+  email:
+    description: guest email address
+    example: 'guest@test.com'
+    type:
+    - string
+    - "null"
+    optional: true
+  phone_number:
+    description: guest phone_number
+    example: '+12223334444'
+    type:
+    - string
+    - "null"
+    optional: true
+description: This endpoint allows you to add guests to a property unit
+links:
+- description: Create a new property_unit_guest.
+  href: "/property-unit-guests"
+  method: POST
+  rel: create
+  schema:
+    properties: {}
+    type:
+    - object
+  title: Create
+- description: Delete an existing property_unit_guest.
+  href: "/property-unit-guests/{(%2Fschemata%2Fproperty_unit_guest%23%2Fdefinitions%2Fidentity)}"
+  method: DELETE
+  rel: destroy
+  title: Delete
+- description: Info for existing property_unit_guest.
+  href: "/property-unit-guests/{(%2Fschemata%2Fproperty_unit_guest%23%2Fdefinitions%2Fidentity)}"
+  method: GET
+  rel: self
+  title: Info
+- description: List existing property-unit-guests.
+  href: "/property-unit-guests"
+  method: GET
+  rel: instances
+  title: List
+- description: Update an existing property_unit_guest.
+  href: "/property-unit-guests/{(%2Fschemata%2Fproperty_unit_guest%23%2Fdefinitions%2Fidentity)}"
+  method: PATCH
+  rel: update
+  schema:
+    properties: {}
+    type:
+    - object
+  title: Update
+properties:
+  created_at:
+    "$ref": "/schemata/property_unit_guest#/definitions/created_at"
+  id:
+    "$ref": "/schemata/property_unit_guest#/definitions/id"
+  pin_code:
+    "$ref": "/schemata/property_unit_guest#/definitions/pin_code"
+  phone_number:
+    "$ref": "/schemata/property_unit_guest#/definitions/phone_number"
+  email:
+    "$ref": "/schemata/property_unit_guest#/definitions/email"
+  updated_at:
+    "$ref": "/schemata/property_unit_guest#/definitions/updated_at"
+type:
+- object
+id: schemata/property_unit_guest
