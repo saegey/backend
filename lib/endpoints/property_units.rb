@@ -37,7 +37,7 @@ module Endpoints
 
       get "/:id" do |property, id|
         property_unit = PropertyUnit.first(
-          id: params[:id], 
+          id: params[:id],
           account_id: session[:account_id]
         ) || halt(404)
 
@@ -48,7 +48,7 @@ module Endpoints
         params.merge! MultiJson.decode(request.env["rack.input"].read)
 
         property_unit = PropertyUnit.first(
-          id: params[:id], 
+          id: params[:id],
           account_id: session[:account_id]
         ) || halt(404)
 

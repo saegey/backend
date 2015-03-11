@@ -15,10 +15,9 @@
         },
         "id": {
           "description": "unique identifier of property_unit_guest",
-          "example": "01234567-89ab-cdef-0123-456789abcdef",
-          "format": "uuid",
+          "example": 1,
           "type": [
-            "string"
+            "integer"
           ]
         },
         "identity": {
@@ -31,13 +30,38 @@
           "type": [
             "string"
           ]
+        },
+        "pin_code": {
+          "description": "guest pin code",
+          "example": "12345",
+          "type": [
+            "string"
+          ]
+        },
+        "email": {
+          "description": "guest email address",
+          "example": "guest@test.com",
+          "type": [
+            "string",
+            "null"
+          ],
+          "optional": true
+        },
+        "phone_number": {
+          "description": "guest phone_number",
+          "example": "+12223334444",
+          "type": [
+            "string",
+            "null"
+          ],
+          "optional": true
         }
       },
       "description": "FIXME",
       "links": [
         {
           "description": "Create a new property_unit_guest.",
-          "href": "/property_unit_guests",
+          "href": "/property-unit-guests",
           "method": "POST",
           "rel": "create",
           "schema": {
@@ -51,28 +75,28 @@
         },
         {
           "description": "Delete an existing property_unit_guest.",
-          "href": "/property_unit_guests/{(%23%2Fdefinitions%2Fproperty_unit_guest%2Fdefinitions%2Fidentity)}",
+          "href": "/property-unit-guests/{(%23%2Fdefinitions%2Fproperty_unit_guest%2Fdefinitions%2Fidentity)}",
           "method": "DELETE",
           "rel": "destroy",
           "title": "Delete"
         },
         {
           "description": "Info for existing property_unit_guest.",
-          "href": "/property_unit_guests/{(%23%2Fdefinitions%2Fproperty_unit_guest%2Fdefinitions%2Fidentity)}",
+          "href": "/property-unit-guests/{(%23%2Fdefinitions%2Fproperty_unit_guest%2Fdefinitions%2Fidentity)}",
           "method": "GET",
           "rel": "self",
           "title": "Info"
         },
         {
-          "description": "List existing property_unit_guests.",
-          "href": "/property_unit_guests",
+          "description": "List existing property-unit-guests.",
+          "href": "/property-unit-guests",
           "method": "GET",
           "rel": "instances",
           "title": "List"
         },
         {
           "description": "Update an existing property_unit_guest.",
-          "href": "/property_unit_guests/{(%23%2Fdefinitions%2Fproperty_unit_guest%2Fdefinitions%2Fidentity)}",
+          "href": "/property-unit-guests/{(%23%2Fdefinitions%2Fproperty_unit_guest%2Fdefinitions%2Fidentity)}",
           "method": "PATCH",
           "rel": "update",
           "schema": {
@@ -92,6 +116,15 @@
         "id": {
           "$ref": "#/definitions/property_unit_guest/definitions/id"
         },
+        "pin_code": {
+          "$ref": "#/definitions/property_unit_guest/definitions/pin_code"
+        },
+        "phone_number": {
+          "$ref": "#/definitions/property_unit_guest/definitions/phone_number"
+        },
+        "email": {
+          "$ref": "#/definitions/property_unit_guest/definitions/email"
+        },
         "updated_at": {
           "$ref": "#/definitions/property_unit_guest/definitions/updated_at"
         }
@@ -108,5 +141,14 @@
   },
   "type": [
     "object"
-  ]
+  ],
+  "description": "Fobless API",
+  "id": "fobless-api",
+  "links": [
+    {
+      "href": "https://fobless-backend.herokuapp.com",
+      "rel": "self"
+    }
+  ],
+  "title": "Fobless"
 }

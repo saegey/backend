@@ -1,8 +1,8 @@
 module Endpoints
   class PropertyUnitGuests < Base
-    namespace "/property_unit_guests" do
+    namespace "/property-unit-guests" do
       before do
-        check_version!
+        # check_version!
         authorize!
         content_type :json, charset: 'utf-8'
       end
@@ -13,21 +13,38 @@ module Endpoints
       end
 
       post do
-        # warning: not safe
-        property_unit_guest = PropertyUnitGuest.new(body_params)
-        property_unit_guest.save
-        status 201
-        encode serialize(property_unit_guest)
+        params.merge! MultiJson.decode(request.env["rack.input"].read)
+
+        property_unit_guest = PropertyUnitGuest.new
+        property_unit_guest.set(
+          property_unit_id: params[:property_unit_id],
+          account_id: session[:account_id],
+          email: params[:email],
+          pin_code: params[:pin_code]
+        )
+
+        if property_unit_guest.valid?
+          property_unit_guest.save
+          status 201
+          encode serialize(property_unit_guest)
+        else
+          status 400
+          encode property_unit_guest.errors
+        end
       end
 
       get "/:id" do |id|
-        property_unit_guest = PropertyUnitGuest.first(id: id) || halt(404)
+        property_unit_guest = PropertyUnitGuest.first(
+          id: params[:id],
+          account_id: session[:account_id]
+        ) || halt(404)
         encode serialize(property_unit_guest)
       end
 
       patch "/:id" do |id|
-        property_unit_guest = PropertyUnitGuest.first(uuid: id) || halt(404)
-        # warning: not safe
+        property_unit_guest = PropertyUnitGuest.first(id: id) || halt(404)
+        property_unit_guest.phone_number = "+12223334444"
+        property_unit_guest.save
         #property_unit_guest.update(body_params)
         encode serialize(property_unit_guest)
       end

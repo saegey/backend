@@ -9,15 +9,15 @@ describe Endpoints::PropertyUnitGuests do
   end
 
   let(:collection_uri) {
-    "/property_unit_guests"
+    "/property-unit-guests"
   }
   let(:resource_uri) {
     "#{collection_uri}/#{@guest.id}"
   }
 
-  describe "GET /property_unit_guests" do
+  describe "GET /property-unit-guests" do
     it "succeeds" do
-      get "/property_unit_guests", {}, auth
+      get "/property-unit-guests", {}, auth
       expect(last_response.status).to eq(200)
       expect(json[0].id).to eq(@guest.id)
       expect(json[0].pin_code).to eq(@guest.pin_code)
@@ -30,9 +30,9 @@ describe Endpoints::PropertyUnitGuests do
     end
   end
 
-  describe "GET /property_unit_guests/:id" do
+  describe "GET /property-unit-guests/:id" do
     it "succeeds" do
-      get "/property_unit_guests/#{@guest.id}", {}, auth
+      get "/property-unit-guests/#{@guest.id}", {}, auth
       expect(last_response.status).to eq(200)
       expect(json.id).to eq(@guest.id)
       expect(json.pin_code).to eq(@guest.pin_code)

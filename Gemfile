@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gem "multi_json"
 gem "oj"
 gem "pg"
-gem "pliny", "~> 0.5"
+gem "pliny", git: "git@github.com:interagent/pliny.git"
 gem "pry"
 gem "pry-doc"
 gem "puma", "~> 2.10"
@@ -43,4 +43,5 @@ group :test do
   gem 'json-schema'
   gem "codeclimate-test-reporter"
   gem 'mock_redis'
+  gem 'prmd', git: "git@github.com:saegey/prmd.git"
 end
