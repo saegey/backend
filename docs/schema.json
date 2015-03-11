@@ -1,6 +1,105 @@
 {
   "$schema": "http://json-schema.org/draft-04/hyper-schema",
   "definitions": {
+    "property_unit": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "FIXME - Property_unit",
+      "definitions": {
+        "id": {
+          "description": "unique identifier of property_unit",
+          "example": "01234567-89ab-cdef-0123-456789abcdef",
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "$ref": "#/definitions/property_unit/definitions/id"
+        },
+        "created_at": {
+          "description": "when property_unit was created",
+          "example": "2012-01-01T12:00:00Z",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when property_unit was updated",
+          "example": "2012-01-01T12:00:00Z",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "description": "FIXME",
+      "links": [
+        {
+          "description": "Create a new property_unit.",
+          "href": "/property_units",
+          "method": "POST",
+          "rel": "create",
+          "schema": {
+            "properties": {
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "title": "Create"
+        },
+        {
+          "description": "Delete an existing property_unit.",
+          "href": "/property_units/{(%23%2Fdefinitions%2Fproperty_unit%2Fdefinitions%2Fidentity)}",
+          "method": "DELETE",
+          "rel": "destroy",
+          "title": "Delete"
+        },
+        {
+          "description": "Info for existing property_unit.",
+          "href": "/property_units/{(%23%2Fdefinitions%2Fproperty_unit%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "List existing property_units.",
+          "href": "/property_units",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List"
+        },
+        {
+          "description": "Update an existing property_unit.",
+          "href": "/property_units/{(%23%2Fdefinitions%2Fproperty_unit%2Fdefinitions%2Fidentity)}",
+          "method": "PATCH",
+          "rel": "update",
+          "schema": {
+            "properties": {
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "title": "Update"
+        }
+      ],
+      "properties": {
+        "created_at": {
+          "$ref": "#/definitions/property_unit/definitions/created_at"
+        },
+        "id": {
+          "$ref": "#/definitions/property_unit/definitions/id"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/property_unit/definitions/updated_at"
+        }
+      },
+      "type": [
+        "object"
+      ]
+    },
     "property_unit_guest": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
       "title": "Property Unit Guests",
@@ -135,6 +234,9 @@
     }
   },
   "properties": {
+    "property_unit": {
+      "$ref": "#/definitions/property_unit"
+    },
     "property_unit_guest": {
       "$ref": "#/definitions/property_unit_guest"
     }
