@@ -6,8 +6,12 @@
 [![Dependency Status](https://gemnasium.com/fobless/backend.svg)](https://gemnasium.com/fobless/backend)
 [![Stories in Ready](https://badge.waffle.io/fobless/backend.svg?label=ready&title=Ready)](http://waffle.io/fobless/backend)
 
+## Getting Started
+
+Add git pre-commit hook for API doc generation and to run spec tests
+```
+ln -s ../../pre-commit.sh .git/hooks/pre-commit
+```
 
 [API Docs](https://github.com/saegey/backend/blob/property_unit_guest_endpoint/docs/schema/schema.md)
 
-
-test line
