@@ -13,5 +13,6 @@ Add git pre-commit hook for API doc generation and to run spec tests
 ln -s ../../pre-commit.sh .git/hooks/pre-commit
 ```
 
-[API Docs](https://github.com/saegey/backend/blob/property_unit_guest_endpoint/docs/schema/schema.md)
 
+### API Documentation
+[Docs](https://github.com/saegey/backend/blob/property_unit_guest_endpoint/docs/schema/schema.md)

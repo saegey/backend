@@ -7,7 +7,7 @@ function main {
   rake schema
   git add docs/schema.json
   git add docs/schema.md
-  git commit --amend -C HEAD --no-verify
+  # git commit --amend -C HEAD --no-verify
   rake spec
 }
 
