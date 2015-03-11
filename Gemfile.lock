@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:interagent/pliny.git
+  remote: https://github.com/interagent/pliny.git
   revision: 1444466850a1e867b6b37e575f6b7528784663d1
   specs:
     pliny (0.6.3)

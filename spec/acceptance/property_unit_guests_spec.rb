@@ -9,7 +9,7 @@ describe Endpoints::PropertyUnitGuests do
   end
 
   def schema_path
-    "./docs/schema/schema.json"
+    "./docs/schema.json"
   end
 
   before do

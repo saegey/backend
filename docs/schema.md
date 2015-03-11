@@ -1,16 +1,16 @@
-## Property_unit_guest
-FIXME
+## Property Unit Guests
+This endpoint allows you to add guests to a property unit
 
 ### Attributes
 | Name | Type | Description | Example |
 | ------- | ------- | ------- | ------- |
-| **created_at** | *date-time* | when property_unit_guest was created | `"2012-01-01T12:00:00Z"` |
+| **created_at** | *date-time* | when property unit guest was created | `"2012-01-01T12:00:00Z"` |
 | **id** | *integer* | unique identifier of property_unit_guest | `1` |
 | **pin_code** | *string* | guest pin code | `"12345"` |
 | **phone_number** | *nullable string* | guest phone_number | `"+12223334444"` |
 | **email** | *nullable string* | guest email address | `"guest@test.com"` |
 | **updated_at** | *date-time* | when property_unit_guest was updated | `"2012-01-01T12:00:00Z"` |
-### Property_unit_guest Create
+### Property Unit Guests Create
 Create a new property_unit_guest.
 
 ```
@@ -41,7 +41,7 @@ HTTP/1.1 201 Created
 }
 ```
 
-### Property_unit_guest Delete
+### Property Unit Guests Delete
 Delete an existing property_unit_guest.
 
 ```
@@ -72,7 +72,7 @@ HTTP/1.1 200 OK
 }
 ```
 
-### Property_unit_guest Info
+### Property Unit Guests Info
 Info for existing property_unit_guest.
 
 ```
@@ -102,7 +102,7 @@ HTTP/1.1 200 OK
 }
 ```
 
-### Property_unit_guest List
+### Property Unit Guests List
 List existing property-unit-guests.
 
 ```
@@ -134,7 +134,7 @@ HTTP/1.1 200 OK
 ]
 ```
 
-### Property_unit_guest Update
+### Property Unit Guests Update
 Update an existing property_unit_guest.
 
 ```
