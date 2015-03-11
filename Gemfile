@@ -43,5 +43,4 @@ group :test do
   gem 'json-schema'
   gem "codeclimate-test-reporter"
   gem 'mock_redis'
-  gem 'prmd', git: "git@github.com:saegey/prmd.git"
 end
