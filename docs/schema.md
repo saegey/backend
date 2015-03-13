@@ -223,11 +223,29 @@ Create a new property.
 POST /properties
 ```
 
+#### Required Parameters
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **name** | *string* | name of property | `"Property Name"` |
+
+
+#### Optional Parameters
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **outbound_phone_numbers** | *array* | an array of outbound phone numbers for the property | `["+12065189761"]` |
+
 
 #### Curl Example
 ```bash
 $ curl -n -X POST https://fobless-backend.herokuapp.com/properties \
   -H "Content-Type: application/json" \
+ \
+  -d '{
+  "name": "Property Name",
+  "outbound_phone_numbers": [
+    "+12065189761"
+  ]
+}'
 
 ```
 
@@ -361,6 +379,11 @@ PATCH /properties/{property_id}
 | **name** | *string* | name of property | `"Property Name"` |
 
 
+#### Optional Parameters
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **outbound_phone_numbers** | *array* | an array of outbound phone numbers for the property | `["+12065189761"]` |
+
 
 #### Curl Example
 ```bash
@@ -368,7 +391,10 @@ $ curl -n -X PATCH https://fobless-backend.herokuapp.com/properties/$PROPERTY_ID
   -H "Content-Type: application/json" \
  \
   -d '{
-  "name": "Property Name"
+  "name": "Property Name",
+  "outbound_phone_numbers": [
+    "+12065189761"
+  ]
 }'
 
 ```

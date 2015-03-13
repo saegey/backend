@@ -151,9 +151,18 @@
           "rel": "create",
           "schema": {
             "properties": {
+              "name": {
+                "$ref": "#/definitions/property/definitions/name"
+              },
+              "outbound_phone_numbers": {
+                "$ref": "#/definitions/property/definitions/outbound_phone_numbers"
+              }
             },
             "type": [
               "object"
+            ],
+            "required": [
+              "name"
             ]
           },
           "title": "Create"
@@ -188,6 +197,9 @@
             "properties": {
               "name": {
                 "$ref": "#/definitions/property/definitions/name"
+              },
+              "outbound_phone_numbers": {
+                "$ref": "#/definitions/property/definitions/outbound_phone_numbers"
               }
             },
             "type": [

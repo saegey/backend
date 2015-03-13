@@ -43,9 +43,15 @@ links:
   method: POST
   rel: create
   schema:
-    properties: {}
+    properties:
+      name:
+        "$ref": "/schemata/property#/definitions/name"
+      outbound_phone_numbers:
+        "$ref": "/schemata/property#/definitions/outbound_phone_numbers"
     type:
     - object
+    required:
+      - name
   title: Create
 - description: Delete an existing property.
   href: "/properties/{(%2Fschemata%2Fproperty%23%2Fdefinitions%2Fidentity)}"
@@ -70,6 +76,8 @@ links:
     properties:
       name:
         "$ref": "/schemata/property#/definitions/name"
+      outbound_phone_numbers:
+        "$ref": "/schemata/property#/definitions/outbound_phone_numbers"
     type:
     - object
     required:
