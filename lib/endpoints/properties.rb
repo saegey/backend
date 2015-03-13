@@ -1,6 +1,6 @@
 module Endpoints
   class Properties < Base
-    namespace "/v1/properties" do
+    namespace "/properties" do
       before do
         authorize!
         content_type :json, charset: 'utf-8'
@@ -33,7 +33,7 @@ module Endpoints
 
       get "/:id" do
         property = Property.first(
-          id: params[:id], 
+          id: params[:id],
           account_id: session[:account_id]
         ) || halt(404)
         encode serialize(property)
@@ -41,17 +41,17 @@ module Endpoints
 
       patch "/:id" do |id|
         params.merge! MultiJson.decode(request.env["rack.input"].read)
-        
+
         property = Property.first(
-          id: params[:id], 
+          id: params[:id],
           account_id: session[:account_id]
         ) || halt(404)
-        
+
         property.update(
           name: params[:name],
           outbound_phone_numbers: params[:outbound_phone_numbers]
         )
-        
+
         if property.valid?
           property.save
           encode serialize(property)
@@ -62,7 +62,7 @@ module Endpoints
 
       delete "/:id" do |id|
         property = Property.first(
-          id: params[:id], 
+          id: params[:id],
           account_id: session[:account_id]
         ) || halt(404)
         property.destroy

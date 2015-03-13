@@ -37,7 +37,7 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :truncation
   end
-  
+
   config.before :each do
     DatabaseCleaner.start
     load('db/seeds.rb') if File.exist?('db/seeds.rb')

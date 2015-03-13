@@ -1,29 +1,44 @@
 require "spec_helper"
 
 describe Endpoints::Accounts do
-  before do
-    @user = User.first(email: 'john.does@gmail.com')
+  def app
+    Routes
   end
 
-  describe 'GET /v1/accounts/:id' do
+  def schema_path
+    "./docs/schema.json"
+  end
+
+  before do
+    @account = Account.first
+    @user = @account.users.first
+  end
+
+  describe 'GET /accounts/:id' do
     it 'returns correct status code and conforms to schema' do
-      get "/v1/accounts/#{@user.account_id}", nil, auth
+      get "/accounts/#{@account.id}", {}, auth
       expect(last_response.status).to eq(200)
+      assert_schema_conform
     end
   end
 
-  describe 'PATCH /v1/accounts/:id' do
+  describe 'PATCH /accounts/:id' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      patch "/v1/accounts/#{@user.account_id}", MultiJson.encode({}), auth
+      data = MultiJson.encode({
+        user_id: 12345,
+      })
+      patch "/accounts/#{@account.id}", data, auth
       expect(last_response.status).to eq(200)
+      assert_schema_conform
     end
   end
 
-  describe 'DELETE /v1/accounts/:id' do
+  describe 'DELETE /accounts/:id' do
     it 'returns correct status code and conforms to schema' do
-      delete "/v1/accounts/#{@user.account_id}", nil, auth
+      delete "/accounts/#{@account.id}", {}, auth
       expect(last_response.status).to eq(200)
+      assert_schema_conform
     end
   end
 end

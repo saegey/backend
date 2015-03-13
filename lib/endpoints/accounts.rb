@@ -1,26 +1,33 @@
 module Endpoints
   class Accounts < Base
-    namespace "/v1/accounts" do
+    namespace "/accounts" do
       before do
         authorize!
         content_type :json, charset: 'utf-8'
       end
 
       get "/:id" do |id|
-        account = Account.first(id: id) || halt(404)
+        account = Account.first(id: session[:account_id]) || halt(404)
         encode serialize(account)
       end
 
       patch "/:id" do |id|
-        account = Account.first(id: id) || halt(404)
+        params.merge! MultiJson.decode(request.env["rack.input"].read)
 
-        # warning: not safe
-        #account.update(body_params)
-        encode serialize(account)
+        account = Account.first(id: session[:account_id]) || halt(404)
+        account.user_id = params[:user_id]
+        if account.valid?
+          account.save
+          status 200
+          encode serialize(account)
+        else
+          status 400
+          encode account.errors
+        end
       end
 
       delete "/:id" do |id|
-        account = Account.first(id: id) || halt(404)
+        account = Account.first(id: session[:account_id]) || halt(404)
         account.destroy
         encode serialize(account)
       end

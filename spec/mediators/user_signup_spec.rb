@@ -1,11 +1,6 @@
 require "spec_helper"
 
 describe Mediators::UserSignup do
-  include Committee::Test::Methods
-  include Rack::Test::Methods
-  include RSpec::Matchers
-  include Requests::JsonHelpers
-  
   it "creates a user from a provider" do
     Mediators::UserSignup.run({
       provider: 'github',

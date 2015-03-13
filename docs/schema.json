@@ -1,16 +1,238 @@
 {
   "$schema": "http://json-schema.org/draft-04/hyper-schema",
   "definitions": {
+    "account": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Account endpoint",
+      "definitions": {
+        "id": {
+          "description": "unique identifier of account",
+          "example": 1,
+          "type": [
+            "integer"
+          ]
+        },
+        "identity": {
+          "$ref": "#/definitions/account/definitions/id"
+        },
+        "user_id": {
+          "description": "primary user id",
+          "example": "1",
+          "type": [
+            "string"
+          ]
+        },
+        "created_at": {
+          "description": "when account was created",
+          "example": "2012-01-01T12:00:00Z",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when account was updated",
+          "example": "2012-01-01T12:00:00Z",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "description": "This is an account",
+      "links": [
+        {
+          "description": "Delete an existing account.",
+          "href": "/accounts/{(%23%2Fdefinitions%2Faccount%2Fdefinitions%2Fidentity)}",
+          "method": "DELETE",
+          "rel": "destroy",
+          "title": "Delete"
+        },
+        {
+          "description": "Info for existing account.",
+          "href": "/accounts/{(%23%2Fdefinitions%2Faccount%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "Update an existing account.",
+          "href": "/accounts/{(%23%2Fdefinitions%2Faccount%2Fdefinitions%2Fidentity)}",
+          "method": "PATCH",
+          "rel": "update",
+          "schema": {
+            "properties": {
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "title": "Update"
+        }
+      ],
+      "properties": {
+        "created_at": {
+          "$ref": "#/definitions/account/definitions/created_at"
+        },
+        "id": {
+          "$ref": "#/definitions/account/definitions/id"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/account/definitions/updated_at"
+        },
+        "user_id": {
+          "$ref": "#/definitions/account/definitions/user_id"
+        }
+      },
+      "type": [
+        "object"
+      ]
+    },
+    "property": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Property",
+      "definitions": {
+        "id": {
+          "description": "unique identifier of property",
+          "example": 1,
+          "type": [
+            "integer"
+          ]
+        },
+        "account_id": {
+          "description": "account the property belongs to",
+          "example": 1,
+          "type": [
+            "integer"
+          ]
+        },
+        "outbound_phone_numbers": {
+          "description": "an array of outbound phone numbers for the property",
+          "example": [
+            "+12065189761"
+          ],
+          "type": [
+            "array"
+          ]
+        },
+        "name": {
+          "description": "name of property",
+          "example": "Property Name",
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "$ref": "#/definitions/property/definitions/id"
+        },
+        "created_at": {
+          "description": "when property was created",
+          "example": "2012-01-01T12:00:00Z",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when property was updated",
+          "example": "2012-01-01T12:00:00Z",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "description": "FIXME",
+      "links": [
+        {
+          "description": "Create a new property.",
+          "href": "/properties",
+          "method": "POST",
+          "rel": "create",
+          "schema": {
+            "properties": {
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "title": "Create"
+        },
+        {
+          "description": "Delete an existing property.",
+          "href": "/properties/{(%23%2Fdefinitions%2Fproperty%2Fdefinitions%2Fidentity)}",
+          "method": "DELETE",
+          "rel": "destroy",
+          "title": "Delete"
+        },
+        {
+          "description": "Info for existing property.",
+          "href": "/properties/{(%23%2Fdefinitions%2Fproperty%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "List existing propertys.",
+          "href": "/properties",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List"
+        },
+        {
+          "description": "Update an existing property.",
+          "href": "/properties/{(%23%2Fdefinitions%2Fproperty%2Fdefinitions%2Fidentity)}",
+          "method": "PATCH",
+          "rel": "update",
+          "schema": {
+            "properties": {
+              "name": {
+                "$ref": "#/definitions/property/definitions/name"
+              }
+            },
+            "type": [
+              "object"
+            ],
+            "required": [
+              "name"
+            ]
+          },
+          "title": "Update"
+        }
+      ],
+      "properties": {
+        "created_at": {
+          "$ref": "#/definitions/property/definitions/created_at"
+        },
+        "id": {
+          "$ref": "#/definitions/property/definitions/id"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/property/definitions/updated_at"
+        },
+        "account_id": {
+          "$ref": "#/definitions/property/definitions/account_id"
+        },
+        "name": {
+          "$ref": "#/definitions/property/definitions/name"
+        },
+        "outbound_phone_numbers": {
+          "$ref": "#/definitions/property/definitions/outbound_phone_numbers"
+        }
+      },
+      "type": [
+        "object"
+      ]
+    },
     "property_unit": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
       "title": "FIXME - Property_unit",
       "definitions": {
         "id": {
-          "description": "unique identifier of property_unit",
-          "example": "01234567-89ab-cdef-0123-456789abcdef",
-          "format": "uuid",
+          "description": "unique identifier of property_unit_guest",
+          "example": 1,
           "type": [
-            "string"
+            "integer"
           ]
         },
         "identity": {
@@ -234,6 +456,12 @@
     }
   },
   "properties": {
+    "account": {
+      "$ref": "#/definitions/account"
+    },
+    "property": {
+      "$ref": "#/definitions/property"
+    },
     "property_unit": {
       "$ref": "#/definitions/property_unit"
     },

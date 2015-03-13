@@ -107,6 +107,291 @@ for guidance on status codes for user error and server error cases.
 
 
 
+## Account endpoint
+This is an account
+
+### Attributes
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **created_at** | *date-time* | when account was created | `"2012-01-01T12:00:00Z"` |
+| **id** | *integer* | unique identifier of account | `1` |
+| **updated_at** | *date-time* | when account was updated | `"2012-01-01T12:00:00Z"` |
+| **user_id** | *string* | primary user id | `"1"` |
+### Account endpoint Delete
+Delete an existing account.
+
+```
+DELETE /accounts/{account_id}
+```
+
+
+#### Curl Example
+```bash
+$ curl -n -X DELETE https://fobless-backend.herokuapp.com/accounts/$ACCOUNT_ID \
+  -H "Content-Type: application/json" \
+
+```
+
+
+#### Response Example
+```
+HTTP/1.1 200 OK
+```
+```json
+{
+  "created_at": "2012-01-01T12:00:00Z",
+  "id": 1,
+  "updated_at": "2012-01-01T12:00:00Z",
+  "user_id": "1"
+}
+```
+
+### Account endpoint Info
+Info for existing account.
+
+```
+GET /accounts/{account_id}
+```
+
+
+#### Curl Example
+```bash
+$ curl -n -X GET https://fobless-backend.herokuapp.com/accounts/$ACCOUNT_ID
+
+```
+
+
+#### Response Example
+```
+HTTP/1.1 200 OK
+```
+```json
+{
+  "created_at": "2012-01-01T12:00:00Z",
+  "id": 1,
+  "updated_at": "2012-01-01T12:00:00Z",
+  "user_id": "1"
+}
+```
+
+### Account endpoint Update
+Update an existing account.
+
+```
+PATCH /accounts/{account_id}
+```
+
+
+#### Curl Example
+```bash
+$ curl -n -X PATCH https://fobless-backend.herokuapp.com/accounts/$ACCOUNT_ID \
+  -H "Content-Type: application/json" \
+
+```
+
+
+#### Response Example
+```
+HTTP/1.1 200 OK
+```
+```json
+{
+  "created_at": "2012-01-01T12:00:00Z",
+  "id": 1,
+  "updated_at": "2012-01-01T12:00:00Z",
+  "user_id": "1"
+}
+```
+
+
+## Property
+FIXME
+
+### Attributes
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **created_at** | *date-time* | when property was created | `"2012-01-01T12:00:00Z"` |
+| **id** | *integer* | unique identifier of property | `1` |
+| **updated_at** | *date-time* | when property was updated | `"2012-01-01T12:00:00Z"` |
+| **account_id** | *integer* | account the property belongs to | `1` |
+| **name** | *string* | name of property | `"Property Name"` |
+| **outbound_phone_numbers** | *array* | an array of outbound phone numbers for the property | `["+12065189761"]` |
+### Property Create
+Create a new property.
+
+```
+POST /properties
+```
+
+
+#### Curl Example
+```bash
+$ curl -n -X POST https://fobless-backend.herokuapp.com/properties \
+  -H "Content-Type: application/json" \
+
+```
+
+
+#### Response Example
+```
+HTTP/1.1 201 Created
+```
+```json
+{
+  "created_at": "2012-01-01T12:00:00Z",
+  "id": 1,
+  "updated_at": "2012-01-01T12:00:00Z",
+  "account_id": 1,
+  "name": "Property Name",
+  "outbound_phone_numbers": [
+    "+12065189761"
+  ]
+}
+```
+
+### Property Delete
+Delete an existing property.
+
+```
+DELETE /properties/{property_id}
+```
+
+
+#### Curl Example
+```bash
+$ curl -n -X DELETE https://fobless-backend.herokuapp.com/properties/$PROPERTY_ID \
+  -H "Content-Type: application/json" \
+
+```
+
+
+#### Response Example
+```
+HTTP/1.1 200 OK
+```
+```json
+{
+  "created_at": "2012-01-01T12:00:00Z",
+  "id": 1,
+  "updated_at": "2012-01-01T12:00:00Z",
+  "account_id": 1,
+  "name": "Property Name",
+  "outbound_phone_numbers": [
+    "+12065189761"
+  ]
+}
+```
+
+### Property Info
+Info for existing property.
+
+```
+GET /properties/{property_id}
+```
+
+
+#### Curl Example
+```bash
+$ curl -n -X GET https://fobless-backend.herokuapp.com/properties/$PROPERTY_ID
+
+```
+
+
+#### Response Example
+```
+HTTP/1.1 200 OK
+```
+```json
+{
+  "created_at": "2012-01-01T12:00:00Z",
+  "id": 1,
+  "updated_at": "2012-01-01T12:00:00Z",
+  "account_id": 1,
+  "name": "Property Name",
+  "outbound_phone_numbers": [
+    "+12065189761"
+  ]
+}
+```
+
+### Property List
+List existing propertys.
+
+```
+GET /properties
+```
+
+
+#### Curl Example
+```bash
+$ curl -n -X GET https://fobless-backend.herokuapp.com/properties
+
+```
+
+
+#### Response Example
+```
+HTTP/1.1 200 OK
+```
+```json
+[
+  {
+    "created_at": "2012-01-01T12:00:00Z",
+    "id": 1,
+    "updated_at": "2012-01-01T12:00:00Z",
+    "account_id": 1,
+    "name": "Property Name",
+    "outbound_phone_numbers": [
+      "+12065189761"
+    ]
+  }
+]
+```
+
+### Property Update
+Update an existing property.
+
+```
+PATCH /properties/{property_id}
+```
+
+#### Required Parameters
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **name** | *string* | name of property | `"Property Name"` |
+
+
+
+#### Curl Example
+```bash
+$ curl -n -X PATCH https://fobless-backend.herokuapp.com/properties/$PROPERTY_ID \
+  -H "Content-Type: application/json" \
+ \
+  -d '{
+  "name": "Property Name"
+}'
+
+```
+
+
+#### Response Example
+```
+HTTP/1.1 200 OK
+```
+```json
+{
+  "created_at": "2012-01-01T12:00:00Z",
+  "id": 1,
+  "updated_at": "2012-01-01T12:00:00Z",
+  "account_id": 1,
+  "name": "Property Name",
+  "outbound_phone_numbers": [
+    "+12065189761"
+  ]
+}
+```
+
+
 ## Property_unit
 FIXME
 
@@ -114,7 +399,7 @@ FIXME
 | Name | Type | Description | Example |
 | ------- | ------- | ------- | ------- |
 | **created_at** | *date-time* | when property_unit was created | `"2012-01-01T12:00:00Z"` |
-| **id** | *uuid* | unique identifier of property_unit | `"01234567-89ab-cdef-0123-456789abcdef"` |
+| **id** | *integer* | unique identifier of property_unit_guest | `1` |
 | **updated_at** | *date-time* | when property_unit was updated | `"2012-01-01T12:00:00Z"` |
 ### Property_unit Create
 Create a new property_unit.
@@ -139,7 +424,7 @@ HTTP/1.1 201 Created
 ```json
 {
   "created_at": "2012-01-01T12:00:00Z",
-  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "id": 1,
   "updated_at": "2012-01-01T12:00:00Z"
 }
 ```
@@ -167,7 +452,7 @@ HTTP/1.1 200 OK
 ```json
 {
   "created_at": "2012-01-01T12:00:00Z",
-  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "id": 1,
   "updated_at": "2012-01-01T12:00:00Z"
 }
 ```
@@ -194,7 +479,7 @@ HTTP/1.1 200 OK
 ```json
 {
   "created_at": "2012-01-01T12:00:00Z",
-  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "id": 1,
   "updated_at": "2012-01-01T12:00:00Z"
 }
 ```
@@ -222,7 +507,7 @@ HTTP/1.1 200 OK
 [
   {
     "created_at": "2012-01-01T12:00:00Z",
-    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "id": 1,
     "updated_at": "2012-01-01T12:00:00Z"
   }
 ]
@@ -251,7 +536,7 @@ HTTP/1.1 200 OK
 ```json
 {
   "created_at": "2012-01-01T12:00:00Z",
-  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "id": 1,
   "updated_at": "2012-01-01T12:00:00Z"
 }
 ```

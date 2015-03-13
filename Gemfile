@@ -32,6 +32,8 @@ group :development, :test do
   gem "pry-byebug"
   gem 'guard'
   gem 'guard-rspec'
+  gem 'guard-rake'
+  gem 'guard-bundler'
 end
 
 group :test do

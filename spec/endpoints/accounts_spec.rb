@@ -1,22 +1,29 @@
 require "spec_helper"
 
 describe Endpoints::Accounts do
-  include Rack::Test::Methods
-
   before do
-    @user = User.create({
-      email: "test@test.com",
-      first_name: "Bob",
-      last_name: "Jones"
-    })
-    @user.updated_at
-    @user.save
+    @user = User.first
   end
 
-  describe "GET /v1/accounts/:id" do
-    it "succeeds" do
-      get "/v1/accounts/#{@user.account_id}", {}, auth
-      assert_equal 200, last_response.status
+  describe 'GET /accounts/:id' do
+    it 'returns correct status code and conforms to schema' do
+      get "/accounts/#{@user.account_id}", nil, auth
+      expect(last_response.status).to eq(200)
+    end
+  end
+
+  describe 'PATCH /accounts/:id' do
+    it 'returns correct status code and conforms to schema' do
+      header "Content-Type", "application/json"
+      patch "/accounts/#{@user.account_id}", MultiJson.encode({}), auth
+      expect(last_response.status).to eq(200)
+    end
+  end
+
+  describe 'DELETE /accounts/:id' do
+    it 'returns correct status code and conforms to schema' do
+      delete "/accounts/#{@user.account_id}", nil, auth
+      expect(last_response.status).to eq(200)
     end
   end
 end

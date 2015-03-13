@@ -3,11 +3,10 @@
 title: FIXME - Property_unit
 definitions:
   id:
-    description: unique identifier of property_unit
-    example: 01234567-89ab-cdef-0123-456789abcdef
-    format: uuid
+    description: unique identifier of property_unit_guest
+    example: 1
     type:
-    - string
+    - integer
   identity:
     "$ref": "/schemata/property_unit#/definitions/id"
   created_at:
