@@ -19,4 +19,4 @@ namespace :schema do
   end
 end
 
-task schema: ['schema:combine', 'schema:verify', 'schema:doc']
+task schema: ['schema:combine', 'schema:verify']

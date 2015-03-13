@@ -5,6 +5,7 @@ function main {
 
   add_new_env_vars
   rake schema
+  prmd doc --prepend docs/overview.md docs/schema.json > docs/schema.md
   git add docs/schema.json
   git add docs/schema.md
   # git commit --amend -C HEAD --no-verify
