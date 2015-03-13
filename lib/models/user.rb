@@ -9,16 +9,16 @@ class User < Sequel::Model
 
   def before_create
     super
-    if self.account_id == nil
-      account = Account.create(status: 'pending')
-      self.account_id = account.id
+    if !self.account
+      self.account = Account.create(status: 'pending')
     end
   end
 
   def after_create
-    account = Account.first(id: self.account_id)
-    account.user_id = self.id
-    account.save
+    if !self.account.user_id
+      self.account.user_id = self.id
+      self.account.save
+    end
   end
 
   def before_save

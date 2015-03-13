@@ -1,12 +1,12 @@
 require "spec_helper"
 
 describe User do
-  let(:user) { 
+  let(:user) {
     User.new({
       first_name: "John",
       last_name: "Doe",
       email: "test@test.com"
-    }) 
+    })
   }
 
   it 'has invalid email address' do
