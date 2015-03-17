@@ -1,30 +1,35 @@
 ---
 "$schema": http://json-schema.org/draft-04/hyper-schema
-title: FIXME - Property_unit
+title: Property Unit
 definitions:
   id:
-    description: unique identifier of property_unit_guest
+    description: unique identifier of property unit
     example: 1
     type:
     - integer
   identity:
     "$ref": "/schemata/property_unit#/definitions/id"
   created_at:
-    description: when property_unit was created
+    description: when property unit was created
     example: '2012-01-01T12:00:00Z'
     format: date-time
+    type:
+    - string
+  phone_number:
+    description: twilio phone number linked to property unit
+    example: '+12345678123'
     type:
     - string
   updated_at:
-    description: when property_unit was updated
+    description: when property unit was updated
     example: '2012-01-01T12:00:00Z'
     format: date-time
     type:
     - string
-description: FIXME
+description: A Property unit is a unit in a property that has fobless access setup. Guests are linked to a property unit.
 links:
 - description: Create a new property_unit.
-  href: "/property_units"
+  href: "/property-units"
   method: POST
   rel: create
   schema:
@@ -33,22 +38,22 @@ links:
     - object
   title: Create
 - description: Delete an existing property_unit.
-  href: "/property_units/{(%2Fschemata%2Fproperty_unit%23%2Fdefinitions%2Fidentity)}"
+  href: "/property-units/{(%2Fschemata%2Fproperty_unit%23%2Fdefinitions%2Fidentity)}"
   method: DELETE
   rel: destroy
   title: Delete
 - description: Info for existing property_unit.
-  href: "/property_units/{(%2Fschemata%2Fproperty_unit%23%2Fdefinitions%2Fidentity)}"
+  href: "/property-units/{(%2Fschemata%2Fproperty_unit%23%2Fdefinitions%2Fidentity)}"
   method: GET
   rel: self
   title: Info
 - description: List existing property_units.
-  href: "/property_units"
+  href: "/property-units"
   method: GET
   rel: instances
   title: List
 - description: Update an existing property_unit.
-  href: "/property_units/{(%2Fschemata%2Fproperty_unit%23%2Fdefinitions%2Fidentity)}"
+  href: "/property-units/{(%2Fschemata%2Fproperty_unit%23%2Fdefinitions%2Fidentity)}"
   method: PATCH
   rel: update
   schema:
@@ -63,6 +68,8 @@ properties:
     "$ref": "/schemata/property_unit#/definitions/id"
   updated_at:
     "$ref": "/schemata/property_unit#/definitions/updated_at"
+  phone_number:
+    "$ref": "/schemata/property_unit#/definitions/phone_number"
 type:
 - object
 id: schemata/property_unit

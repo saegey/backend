@@ -1,6 +1,6 @@
 module Endpoints
   class PropertyUnits < Base
-    namespace "/v1/properties/:property_id/units" do
+    namespace "/property-units" do
       before do
         authorize!
         content_type :json, charset: 'utf-8'
@@ -8,7 +8,6 @@ module Endpoints
 
       get do
         property_units = PropertyUnit.where(
-          property_id: params[:property_id], 
           account_id: session[:account_id]
         ) || halt(404)
 
@@ -35,7 +34,7 @@ module Endpoints
         end
       end
 
-      get "/:id" do |property, id|
+      get "/:id" do |id|
         property_unit = PropertyUnit.first(
           id: params[:id],
           account_id: session[:account_id]
@@ -44,7 +43,7 @@ module Endpoints
         encode serialize(property_unit)
       end
 
-      patch "/:id" do |property_id, id|
+      patch "/:id" do |id|
         params.merge! MultiJson.decode(request.env["rack.input"].read)
 
         property_unit = PropertyUnit.first(
@@ -53,7 +52,6 @@ module Endpoints
         ) || halt(404)
 
         property_unit.update(
-          property_id: params[:property_id],
           phone_number: params[:phone_number]
         )
 
@@ -67,7 +65,7 @@ module Endpoints
         end
       end
 
-      delete "/:id" do |property_id, id|
+      delete "/:id" do |id|
         property_unit = PropertyUnit.first(
           id: params[:id],
           account_id: session[:account_id]

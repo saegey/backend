@@ -23,29 +23,30 @@ describe Endpoints::PropertyUnits do
   end
 
 
-  describe "GET /v1/properties/id/units" do
+  describe "GET /property-units" do
     it 'returns correct status code and conforms to schema' do
-      get "/v1/properties/#{@property.id}/units", {}, auth
+      get "/property-units", {}, auth
+      
       expect(last_response.status).to eq(200)
       expect(json[0].property_id).to eq(@property.id)
       expect(json[0].phone_number).to eq("+12345678123")
     end
 
     it 'returns unauthorized status code' do
-      get "/v1/properties/#{@property.id}/units"
+      get "/property-units"
       expect(last_response.status).to eq(401)
     end
   end
 
 
-  describe 'POST /v1/properties/id/units' do
+  describe 'POST /property-units' do
     before do
       @data = { property_id: @property.id, phone_number: "+12345678123" }
     end
 
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      post "/v1/properties/#{@property.id}/units", MultiJson.encode(@data), auth
+      post "/property-units", MultiJson.encode(@data), auth
 
       expect(last_response.status).to eq(201)
       expect(json.property_id).to eq(@data[:property_id])
@@ -53,27 +54,27 @@ describe Endpoints::PropertyUnits do
     end
 
     it 'returns unauthorized status code' do
-      post "/v1/properties/#{@property.id}/units", MultiJson.encode(@data)
+      post "/property-units", MultiJson.encode(@data)
       expect(last_response.status).to eq(401)
     end
   end
 
 
-  describe "GET /properties/:property_id/units/:id" do
+  describe "GET /property-units/:id" do
     it 'returns correct status code and conforms to schema' do
-      get "/v1/properties/#{@property.id}/units/#{@property_unit.id}", {}, auth
+      get "/property-units/#{@property_unit.id}", {}, auth
       expect(last_response.status).to eq(200)
       expect(json.id).to eq(@property_unit.id)
       expect(json.phone_number).to eq("+12345678123")
     end
 
     it 'returns unauthorized status code' do
-      get "/v1/properties/#{@property.id}/units/#{@property_unit.id}"
+      get "/property-units/#{@property_unit.id}"
       expect(last_response.status).to eq(401)
     end
   end
 
-  describe 'PATCH /properties/:property_id/units/:id' do
+  describe 'PATCH /property-units/:id' do
     before do
       @data = { phone_number: "+19876543987" }
     end
@@ -81,28 +82,28 @@ describe Endpoints::PropertyUnits do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
 
-      patch "/v1/properties/#{@property.id}/units/#{@property_unit.id}", MultiJson.encode(@data), auth
+      patch "/property-units/#{@property_unit.id}", MultiJson.encode(@data), auth
       expect(last_response.status).to eq(200)
       expect(json.phone_number).to eq("+19876543987")
       expect(json.id).to eq(@property_unit.id)
     end
 
     it 'returns unauthorized status code' do
-      get "/v1/properties/#{@property.id}/units/#{@property_unit.id}"
+      get "/property-units/#{@property_unit.id}"
       expect(last_response.status).to eq(401)
     end
   end
 
-  describe 'DELETE /properties/:property_id/units/:id' do
+  describe 'DELETE /property-units/:id' do
     it 'returns correct status code and conforms to schema' do
-      delete "/v1/properties/#{@property.id}/units/#{@property_unit.id}", {}, auth
+      delete "/property-units/#{@property_unit.id}", {}, auth
       expect(last_response.status).to eq(200)
       expect(json.id).to eq(@property_unit.id)
       expect(json.phone_number).to eq("+12345678123")
     end
 
     it 'returns unauthorized status code' do
-      delete "/v1/properties/#{@property.id}/units/#{@property_unit.id}"
+      delete "/property-units/#{@property_unit.id}"
       expect(last_response.status).to eq(401)
     end
   end
