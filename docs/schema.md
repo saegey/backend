@@ -418,26 +418,27 @@ HTTP/1.1 200 OK
 ```
 
 
-## Property_unit
-FIXME
+## Property Unit
+A Property unit is a unit in a property that has fobless access setup. Guests are linked to a property unit.
 
 ### Attributes
 | Name | Type | Description | Example |
 | ------- | ------- | ------- | ------- |
-| **created_at** | *date-time* | when property_unit was created | `"2012-01-01T12:00:00Z"` |
-| **id** | *integer* | unique identifier of property_unit_guest | `1` |
-| **updated_at** | *date-time* | when property_unit was updated | `"2012-01-01T12:00:00Z"` |
-### Property_unit Create
+| **created_at** | *date-time* | when property unit was created | `"2012-01-01T12:00:00Z"` |
+| **id** | *integer* | unique identifier of property unit | `1` |
+| **updated_at** | *date-time* | when property unit was updated | `"2012-01-01T12:00:00Z"` |
+| **phone_number** | *string* | twilio phone number linked to property unit | `"+12345678123"` |
+### Property Unit Create
 Create a new property_unit.
 
 ```
-POST /property_units
+POST /property-units
 ```
 
 
 #### Curl Example
 ```bash
-$ curl -n -X POST https://fobless-backend.herokuapp.com/property_units \
+$ curl -n -X POST https://fobless-backend.herokuapp.com/property-units \
   -H "Content-Type: application/json" \
 
 ```
@@ -451,21 +452,22 @@ HTTP/1.1 201 Created
 {
   "created_at": "2012-01-01T12:00:00Z",
   "id": 1,
-  "updated_at": "2012-01-01T12:00:00Z"
+  "updated_at": "2012-01-01T12:00:00Z",
+  "phone_number": "+12345678123"
 }
 ```
 
-### Property_unit Delete
+### Property Unit Delete
 Delete an existing property_unit.
 
 ```
-DELETE /property_units/{property_unit_id}
+DELETE /property-units/{property_unit_id}
 ```
 
 
 #### Curl Example
 ```bash
-$ curl -n -X DELETE https://fobless-backend.herokuapp.com/property_units/$PROPERTY_UNIT_ID \
+$ curl -n -X DELETE https://fobless-backend.herokuapp.com/property-units/$PROPERTY_UNIT_ID \
   -H "Content-Type: application/json" \
 
 ```
@@ -479,21 +481,22 @@ HTTP/1.1 200 OK
 {
   "created_at": "2012-01-01T12:00:00Z",
   "id": 1,
-  "updated_at": "2012-01-01T12:00:00Z"
+  "updated_at": "2012-01-01T12:00:00Z",
+  "phone_number": "+12345678123"
 }
 ```
 
-### Property_unit Info
+### Property Unit Info
 Info for existing property_unit.
 
 ```
-GET /property_units/{property_unit_id}
+GET /property-units/{property_unit_id}
 ```
 
 
 #### Curl Example
 ```bash
-$ curl -n -X GET https://fobless-backend.herokuapp.com/property_units/$PROPERTY_UNIT_ID
+$ curl -n -X GET https://fobless-backend.herokuapp.com/property-units/$PROPERTY_UNIT_ID
 
 ```
 
@@ -506,21 +509,22 @@ HTTP/1.1 200 OK
 {
   "created_at": "2012-01-01T12:00:00Z",
   "id": 1,
-  "updated_at": "2012-01-01T12:00:00Z"
+  "updated_at": "2012-01-01T12:00:00Z",
+  "phone_number": "+12345678123"
 }
 ```
 
-### Property_unit List
+### Property Unit List
 List existing property_units.
 
 ```
-GET /property_units
+GET /property-units
 ```
 
 
 #### Curl Example
 ```bash
-$ curl -n -X GET https://fobless-backend.herokuapp.com/property_units
+$ curl -n -X GET https://fobless-backend.herokuapp.com/property-units
 
 ```
 
@@ -534,22 +538,23 @@ HTTP/1.1 200 OK
   {
     "created_at": "2012-01-01T12:00:00Z",
     "id": 1,
-    "updated_at": "2012-01-01T12:00:00Z"
+    "updated_at": "2012-01-01T12:00:00Z",
+    "phone_number": "+12345678123"
   }
 ]
 ```
 
-### Property_unit Update
+### Property Unit Update
 Update an existing property_unit.
 
 ```
-PATCH /property_units/{property_unit_id}
+PATCH /property-units/{property_unit_id}
 ```
 
 
 #### Curl Example
 ```bash
-$ curl -n -X PATCH https://fobless-backend.herokuapp.com/property_units/$PROPERTY_UNIT_ID \
+$ curl -n -X PATCH https://fobless-backend.herokuapp.com/property-units/$PROPERTY_UNIT_ID \
   -H "Content-Type: application/json" \
 
 ```
@@ -563,7 +568,8 @@ HTTP/1.1 200 OK
 {
   "created_at": "2012-01-01T12:00:00Z",
   "id": 1,
-  "updated_at": "2012-01-01T12:00:00Z"
+  "updated_at": "2012-01-01T12:00:00Z",
+  "phone_number": "+12345678123"
 }
 ```
 
@@ -732,6 +738,103 @@ HTTP/1.1 200 OK
   "phone_number": "+12223334444",
   "email": "guest@test.com",
   "updated_at": "2012-01-01T12:00:00Z"
+}
+```
+
+
+## Users
+User attached to an account
+
+### Attributes
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **created_at** | *date-time* | when user was created | `"2012-01-01T12:00:00Z"` |
+| **id** | *integer* | unique identifier for user | `1` |
+| **updated_at** | *date-time* | when user was updated | `"2012-01-01T12:00:00Z"` |
+| **user_id** | *string* | primary user id | `"1"` |
+### Users Delete
+Delete an existing user.
+
+```
+DELETE /users/{user_id}
+```
+
+
+#### Curl Example
+```bash
+$ curl -n -X DELETE https://fobless-backend.herokuapp.com/users/$USER_ID \
+  -H "Content-Type: application/json" \
+
+```
+
+
+#### Response Example
+```
+HTTP/1.1 200 OK
+```
+```json
+{
+  "created_at": "2012-01-01T12:00:00Z",
+  "id": 1,
+  "updated_at": "2012-01-01T12:00:00Z",
+  "user_id": "1"
+}
+```
+
+### Users Info
+Info for existing user.
+
+```
+GET /users/{user_id}
+```
+
+
+#### Curl Example
+```bash
+$ curl -n -X GET https://fobless-backend.herokuapp.com/users/$USER_ID
+
+```
+
+
+#### Response Example
+```
+HTTP/1.1 200 OK
+```
+```json
+{
+  "created_at": "2012-01-01T12:00:00Z",
+  "id": 1,
+  "updated_at": "2012-01-01T12:00:00Z",
+  "user_id": "1"
+}
+```
+
+### Users Update
+Update an existing user.
+
+```
+PATCH /users/{user_id}
+```
+
+
+#### Curl Example
+```bash
+$ curl -n -X PATCH https://fobless-backend.herokuapp.com/users/$USER_ID \
+  -H "Content-Type: application/json" \
+
+```
+
+
+#### Response Example
+```
+HTTP/1.1 200 OK
+```
+```json
+{
+  "created_at": "2012-01-01T12:00:00Z",
+  "id": 1,
+  "updated_at": "2012-01-01T12:00:00Z",
+  "user_id": "1"
 }
 ```
 

@@ -1,0 +1,62 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: Users
+definitions:
+  id:
+    description: unique identifier for user
+    example: 1
+    type:
+    - integer
+  identity:
+    "$ref": "/schemata/user#/definitions/id"
+  user_id:
+    description: primary user id
+    example: '1'
+    type:
+    - string
+  created_at:
+    description: when user was created
+    example: '2012-01-01T12:00:00Z'
+    format: date-time
+    type:
+    - string
+  updated_at:
+    description: when user was updated
+    example: '2012-01-01T12:00:00Z'
+    format: date-time
+    type:
+    - string
+description: User attached to an account
+links:
+- description: Delete an existing user.
+  href: "/users/{(%2Fschemata%2Fuser%23%2Fdefinitions%2Fidentity)}"
+  method: DELETE
+  rel: destroy
+  title: Delete
+- description: Info for existing user.
+  href: "/users/{(%2Fschemata%2Fuser%23%2Fdefinitions%2Fidentity)}"
+  method: GET
+  rel: self
+  title: Info
+- description: Update an existing user.
+  href: "/users/{(%2Fschemata%2Fuser%23%2Fdefinitions%2Fidentity)}"
+  method: PATCH
+  rel: update
+  schema:
+    properties: {}
+    type:
+    - object
+  title: Update
+properties:
+  created_at:
+    "$ref": "/schemata/user#/definitions/created_at"
+  id:
+    "$ref": "/schemata/user#/definitions/id"
+  updated_at:
+    "$ref": "/schemata/user#/definitions/updated_at"
+  user_id:
+    "$ref": "/schemata/user#/definitions/user_id"
+type:
+- object
+id: schemata/user
+
